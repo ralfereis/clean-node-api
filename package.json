@@ -4,9 +4,17 @@
   "main": "index.js",
   "author": "Ralfe Reis <ralfe.cavalcante@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  },
   "devDependencies": {
     "@types/node": "^14.14.36",
+    "eslint": "^7.22.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import-helpers": "^1.1.0",
     "git-commit-msg-linter": "^3.1.0",
     "typescript": "^4.2.3"
   }
