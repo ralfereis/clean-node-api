@@ -1,4 +1,5 @@
 export class SignUpController {
+  // eslint-disable-next-line consistent-return
   handle(httpRequest: any): any {
     if (!httpRequest.body.name) {
       return {
