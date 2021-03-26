@@ -21,6 +21,7 @@
         "prettier"
     ],
     "rules": {
+        "consistent-return": "off",
         "prettier/prettier": "error",
         "camelcase": "off",
         "import/no-unresolved": "error",
