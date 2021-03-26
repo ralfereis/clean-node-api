@@ -5,8 +5,8 @@
   "author": "Ralfe Reis <ralfe.cavalcante@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "test:staged": "jest"
+    "test": "jest --passWithNoTests",
+    "test:staged": "jest --passWithNoTests"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.19.0",
