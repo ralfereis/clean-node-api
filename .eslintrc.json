@@ -21,6 +21,7 @@
         "prettier"
     ],
     "rules": {
+        "no-restricted-syntax": "off",
         "consistent-return": "off",
         "prettier/prettier": "error",
         "camelcase": "off",
