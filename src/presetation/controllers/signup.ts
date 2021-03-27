@@ -34,7 +34,7 @@ export class SignUpController implements IController {
     }
     return {
       statusCode: 400,
-      body: 'Olá Ralfe',
+      body: 'Just to fix an error in IHttpResponse returns',
     };
   }
 }
