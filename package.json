@@ -5,8 +5,12 @@
   "author": "Ralfe Reis <ralfe.cavalcante@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --passWithNoTests --watch",
-    "test:staged": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:unit": "yarn test --watch -c jest-unit-config.js",
+    "test:integration": "yarn test  --watch -c jest-integration-config.js",
+    "test:staged": "yarn test --findRelatedTests",
+    "test:ci": "yarn test --coverage"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^4.19.0",
