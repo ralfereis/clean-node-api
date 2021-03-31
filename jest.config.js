@@ -8,7 +8,10 @@ module.exports = {
     '!**/test/**',
   ],
   clearMocks: true,
-  preset: 'ts-jest',
   testEnvironment: 'node',
+  preset: '@shelf/jest-mongodb',
+  transform: {
+    '.+\\.ts$': 'ts-jest'
+  },
   testMatch: ['**/*.spec.ts'],
 };
