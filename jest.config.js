@@ -7,11 +7,9 @@ module.exports = {
     '!**/protocols/**',
     '!**/test/**',
   ],
-  clearMocks: true,
   testEnvironment: 'node',
   preset: '@shelf/jest-mongodb',
   transform: {
     '.+\\.ts$': 'ts-jest'
   },
-  testMatch: ['**/*.spec.ts'],
 };

@@ -1,5 +1,3 @@
-import express from 'express';
+import app from './config/app';
 
-const app = express();
-
-app.listen(3333, () => console.log('🖥  Server started on port 3333!'));
+app.listen(5550, () => console.log('🖥  Server started on port 5550!'));
