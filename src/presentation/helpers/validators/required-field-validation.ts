@@ -3,6 +3,7 @@ import { IValidation } from './validation';
 
 export class RequiredFieldValidation implements IValidation {
   private readonly fieldName: string;
+
   constructor(fieldName: string) {
     this.fieldName = fieldName;
   }
