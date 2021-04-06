@@ -1,17 +1,16 @@
 // eslint-disable-next-line max-classes-per-file
-import { IAuthentication } from '../../../domain/usecases/authentication';
-import {
-  InvalidParamError,
-  MissingParamError,
-  UnauthorizedError,
-} from '../../errors';
+import { InvalidParamError, MissingParamError } from '../../errors';
 import {
   badRequest,
   serverError,
   unauthorized,
 } from '../../helpers/http-helper';
-import { IEmailValidator, IHttpRequest } from '../signup/signup-protocols';
 import { LoginController } from './login';
+import {
+  IEmailValidator,
+  IHttpRequest,
+  IAuthentication,
+} from './login-protocols';
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
