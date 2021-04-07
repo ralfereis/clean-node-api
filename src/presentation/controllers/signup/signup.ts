@@ -1,4 +1,4 @@
-import { badRequest, serverError, ok } from '../../helpers/http-helper';
+import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
 import { IValidation } from '../../helpers/validators/validation';
 import {
   IController,

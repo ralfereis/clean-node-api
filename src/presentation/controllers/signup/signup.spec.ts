@@ -1,6 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { MissingParamError, ServerError } from '../../errors';
-import { badRequest, ok, serverError } from '../../helpers/http-helper';
+import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
 import { IValidation } from '../../helpers/validators/validation';
 import { IHttpRequest } from '../../protocols';
 import { SignUpController } from './signup';
