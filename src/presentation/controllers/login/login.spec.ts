@@ -1,6 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import { IAuthenticationModel } from '../../../domain/usecases/authentication';
-import { InvalidParamError, MissingParamError } from '../../errors';
+import { MissingParamError } from '../../errors';
 import {
   badRequest,
   ok,
