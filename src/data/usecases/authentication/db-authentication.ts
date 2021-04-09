@@ -2,7 +2,7 @@ import {
   IAuthentication,
   IAuthenticationModel,
 } from '../../../domain/usecases/authentication';
-import { ILoadAccountByEmailRepository } from '../../protocols/load-account-by-email-repository';
+import { ILoadAccountByEmailRepository } from '../../protocols/db/load-account-by-email-repository';
 
 export class DbAuthentication implements IAuthentication {
   private readonly loadAccountByEmailRepository: ILoadAccountByEmailRepository;

@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { IAccountModel } from '../../../domain/models/account';
 import { IAddAccountModel } from '../../../domain/usecases/add-account';
-import { IAddAccountRepository } from '../../protocols/add-account-repository';
+import { IAddAccountRepository } from '../../protocols/db/add-account-repository';
 import { DbAddAccount } from './db-add-account';
 import { IEncrypter } from './db-add-account-protocols';
 

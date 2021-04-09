@@ -1,4 +1,4 @@
-import { IAddAccountRepository } from '../../protocols/add-account-repository';
+import { IAddAccountRepository } from '../../protocols/db/add-account-repository';
 import {
   IAccountModel,
   IAddAccount,
