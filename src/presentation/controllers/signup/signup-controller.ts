@@ -5,7 +5,7 @@ import {
   IController,
   IHttpRequest,
   IHttpResponse,
-} from './signup-protocols';
+} from './signup-controller-protocols';
 
 export class SignUpController implements IController {
   private readonly addAccount: IAddAccount;

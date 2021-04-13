@@ -10,7 +10,7 @@ import {
   IHttpResponse,
   IAuthentication,
   IValidation,
-} from './login-protocols';
+} from './login-controller-protocols';
 
 export class LoginController implements IController {
   private readonly validation: IValidation;

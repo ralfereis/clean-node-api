@@ -1,6 +1,6 @@
-import { IAddAccountRepository } from '../../../../data/protocols/db/add-account-repository';
-import { ILoadAccountByEmailRepository } from '../../../../data/protocols/db/load-account-by-email-repository';
-import { IUpdateAccessTokenRepository } from '../../../../data/protocols/db/update-access-token-repository';
+import { IAddAccountRepository } from '../../../../data/protocols/db/account/add-account-repository';
+import { ILoadAccountByEmailRepository } from '../../../../data/protocols/db/account/load-account-by-email-repository';
+import { IUpdateAccessTokenRepository } from '../../../../data/protocols/db/account/update-access-token-repository';
 import { IAccountModel } from '../../../../domain/models/account';
 import { IAddAccountModel } from '../../../../domain/usecases/add-account';
 import { MongoHelper } from '../helpers/mongo-helper';

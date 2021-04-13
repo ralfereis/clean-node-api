@@ -3,12 +3,12 @@ import { MissingParamError, ServerError } from '../../errors';
 import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
 import { IHttpRequest } from '../../protocols';
 import { IValidation } from '../../protocols/validation';
-import { SignUpController } from './signup';
+import { SignUpController } from './signup-controller';
 import {
   IAccountModel,
   IAddAccount,
   IAddAccountModel,
-} from './signup-protocols';
+} from './signup-controller-protocols';
 
 const makeFakeAccount = (): IAccountModel => ({
   id: 'valid_id',
