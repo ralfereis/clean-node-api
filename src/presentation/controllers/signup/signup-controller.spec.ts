@@ -1,6 +1,11 @@
 // eslint-disable-next-line max-classes-per-file
-import { MissingParamError, ServerError } from '../../errors';
-import { badRequest, ok, serverError } from '../../helpers/http/http-helper';
+import { EmailInUserError, MissingParamError, ServerError } from '../../errors';
+import {
+  badRequest,
+  ok,
+  serverError,
+  forbidden,
+} from '../../helpers/http/http-helper';
 import { IHttpRequest } from '../../protocols';
 import { IValidation } from '../../protocols/validation';
 import { SignUpController } from './signup-controller';
@@ -99,6 +104,15 @@ describe('SignUp Controller', () => {
       email: 'any_email@mail.com',
       password: 'any_password',
     });
+  });
+
+  test('Should return 403 if AddAccount returns null', async () => {
+    const { sut, addAccountStub } = makeSut();
+    jest
+      .spyOn(addAccountStub, 'add')
+      .mockReturnValueOnce(new Promise(resolve => resolve(null)));
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(forbidden(new EmailInUserError()));
   });
 
   test('Should return 200 if valid data is provided', async () => {
