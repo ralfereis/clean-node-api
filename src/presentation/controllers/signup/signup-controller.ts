@@ -26,7 +26,7 @@ export class SignUpController implements IController {
         email,
         password,
       });
-      this.authentication.auth({
+      await this.authentication.auth({
         email,
         password,
       });
