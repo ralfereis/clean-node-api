@@ -1,13 +1,13 @@
 // eslint-disable-next-line max-classes-per-file
-import { IAuthenticationModel } from '../../../domain/usecases/authentication';
-import { MissingParamError } from '../../errors';
+import { IAuthenticationModel } from '../../../../domain/usecases/authentication';
+import { MissingParamError } from '../../../errors';
 import {
   badRequest,
   ok,
   serverError,
   unauthorized,
-} from '../../helpers/http/http-helper';
-import { IValidation } from '../signup/signup-controller-protocols';
+} from '../../../helpers/http/http-helper';
+import { IValidation } from '../../../protocols';
 import { LoginController } from './login-controller';
 import { IHttpRequest, IAuthentication } from './login-controller-protocols';
 

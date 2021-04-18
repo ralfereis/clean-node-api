@@ -1,13 +1,17 @@
 // eslint-disable-next-line max-classes-per-file
-import { EmailInUserError, MissingParamError, ServerError } from '../../errors';
+import {
+  EmailInUserError,
+  MissingParamError,
+  ServerError,
+} from '../../../errors';
 import {
   badRequest,
   ok,
   serverError,
   forbidden,
-} from '../../helpers/http/http-helper';
-import { IHttpRequest } from '../../protocols';
-import { IValidation } from '../../protocols/validation';
+} from '../../../helpers/http/http-helper';
+import { IHttpRequest } from '../../../protocols';
+import { IValidation } from '../../../protocols/validation';
 import { SignUpController } from './signup-controller';
 import {
   IAccountModel,
