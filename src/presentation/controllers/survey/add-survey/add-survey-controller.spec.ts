@@ -35,7 +35,7 @@ const makeValidation = (): IValidation => {
 
 const makeAddSurvey = (): IAddSurvey => {
   class AddSurveyStub implements IAddSurvey {
-    async add(dat: IAddSurveyModel): Promise<void> {
+    async add(data: IAddSurveyModel): Promise<void> {
       return new Promise(resolve => resolve());
     }
   }
