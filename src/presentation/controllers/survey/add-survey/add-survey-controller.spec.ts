@@ -1,8 +1,12 @@
 /* eslint-disable max-classes-per-file */
 import { badRequest } from '../../../helpers/http/http-helper';
-import { IValidation } from '../../../protocols';
 import { AddSurveyController } from './add-survey-controller';
-import { IHttpRequest } from './add-survey-controller-protocols';
+import {
+  IAddSurvey,
+  IHttpRequest,
+  IAddSurveyModel,
+  IValidation,
+} from './add-survey-controller-protocols';
 
 const makeFakeRequest = (): IHttpRequest => ({
   body: {
@@ -25,17 +29,29 @@ const makeValidation = (): IValidation => {
   return new ValidationStub();
 };
 
+const makeAddSurvey = (): IAddSurvey => {
+  class AddSurveyStub implements IAddSurvey {
+    async add(dat: IAddSurveyModel): Promise<void> {
+      return new Promise(resolve => resolve());
+    }
+  }
+  return new AddSurveyStub();
+};
+
 interface ISutTypes {
   sut: AddSurveyController;
   validationStub: IValidation;
+  addSurveyStub: IAddSurvey;
 }
 
 const makeSut = (): ISutTypes => {
   const validationStub = makeValidation();
-  const sut = new AddSurveyController(validationStub);
+  const addSurveyStub = makeAddSurvey();
+  const sut = new AddSurveyController(validationStub, addSurveyStub);
   return {
     sut,
     validationStub,
+    addSurveyStub,
   };
 };
 describe('AddSurvey Controller', () => {
@@ -52,5 +68,13 @@ describe('AddSurvey Controller', () => {
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error());
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(badRequest(new Error()));
+  });
+
+  test('Should call AddSurvey with correct values', async () => {
+    const { sut, addSurveyStub } = makeSut();
+    const addSpy = jest.spyOn(addSurveyStub, 'add');
+    const httpRequest = makeFakeRequest();
+    await sut.handle(httpRequest);
+    expect(addSpy).toHaveBeenCalledWith(httpRequest.body);
   });
 });
