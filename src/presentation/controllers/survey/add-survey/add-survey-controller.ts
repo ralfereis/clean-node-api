@@ -1,4 +1,8 @@
-import { badRequest, serverError } from '../../../helpers/http/http-helper';
+import {
+  badRequest,
+  noContent,
+  serverError,
+} from '../../../helpers/http/http-helper';
 import {
   IAddSurvey,
   IController,
@@ -23,7 +27,7 @@ export class AddSurveyController implements IController {
         question,
         answers,
       });
-      return null;
+      return noContent();
     } catch (error) {
       return serverError(error);
     }
