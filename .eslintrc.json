@@ -23,7 +23,7 @@
     "rules": {
         "@typescript-eslint/no-unused-vars": ["off"],
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",     
         "no-restricted-syntax": "off",
         "consistent-return": "off",
         "prettier/prettier": "error",
@@ -62,11 +62,8 @@
                 "alphabetize": { "order": "asc", "ignoreCase": true }
             }
         ],
-        "import/no-extraneous-dependencies": [
-            "error",
-            { "devDependencies": ["**/*.spec.ts", "**/*.test.ts" ] }
+        "import/no-extraneous-dependencies": "off"
 
-        ]
     },
     "settings": {
         "import/resolver": {
