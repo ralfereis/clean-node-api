@@ -1,9 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { DbAddSurvey } from './db-add-survey';
-import {
-  IAddSurveyModel,
-  IAddSurveyRepository,
-} from './db-add-survey-protocols';
+import { IAddSurveyModel, IAddSurveyRepository } from './db-add-survey-protocols';
 
 const makeFakeSurveyData = (): IAddSurveyModel => ({
   question: 'any_question',
@@ -51,9 +48,7 @@ describe('DbAddSurvey UseCase', () => {
     const { sut, addSurveyRepositoryStub } = makeSut();
     jest
       .spyOn(addSurveyRepositoryStub, 'add')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
     const promise = sut.add(makeFakeSurveyData());
     await expect(promise).rejects.toThrow();
   });

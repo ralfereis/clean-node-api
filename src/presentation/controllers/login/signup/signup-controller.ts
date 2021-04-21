@@ -1,10 +1,5 @@
 import { EmailInUserError } from '../../../errors';
-import {
-  badRequest,
-  forbidden,
-  ok,
-  serverError,
-} from '../../../helpers/http/http-helper';
+import { badRequest, forbidden, ok, serverError } from '../../../helpers/http/http-helper';
 import { IValidation } from '../../../protocols/validation';
 import {
   IAddAccount,

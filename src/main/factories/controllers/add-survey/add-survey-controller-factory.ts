@@ -5,9 +5,6 @@ import { makeDbAddSurvey } from '../../usecases/add-account/db-add-account-facto
 import { makeAddSurveyValidation } from './add-survey-validation-factory';
 
 export const makeAddSurveyController = (): IController => {
-  const controller = new AddSurveyController(
-    makeAddSurveyValidation(),
-    makeDbAddSurvey(),
-  );
+  const controller = new AddSurveyController(makeAddSurveyValidation(), makeDbAddSurvey());
   return makeLogControllerDecorator(controller);
 };

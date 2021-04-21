@@ -40,8 +40,7 @@ const makeFakeAccountData = (): IAddAccountModel => ({
 });
 
 const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
-  class LoadAccountByEmailRepositoryStub
-    implements ILoadAccountByEmailRepository {
+  class LoadAccountByEmailRepositoryStub implements ILoadAccountByEmailRepository {
     async loadByEmail(email: string): Promise<IAccountModel> {
       return new Promise(resolve => resolve(null));
     }
@@ -85,9 +84,7 @@ describe('DbAddAccount UseCase', () => {
     const { sut, hasherStub } = makeSut();
     jest
       .spyOn(hasherStub, 'hash')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
     const promise = sut.add(makeFakeAccountData());
     await expect(promise).rejects.toThrow();
   });
@@ -107,9 +104,7 @@ describe('DbAddAccount UseCase', () => {
     const { sut, addAccountRepositoryStub } = makeSut();
     jest
       .spyOn(addAccountRepositoryStub, 'add')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())));
     const promise = sut.add(makeFakeAccountData());
     await expect(promise).rejects.toThrow();
   });
