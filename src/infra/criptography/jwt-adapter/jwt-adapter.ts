@@ -7,11 +7,11 @@ export class JwAdapter implements IEncrypter, IDecrypter {
   constructor(private readonly secret: string) {}
 
   async encrypt(value: string): Promise<string> {
-    const accessToken = await jwt.sign({ id: value }, this.secret);
+    const accessToken = jwt.sign({ id: value }, this.secret);
     return accessToken;
   }
-  async decrypt(value: string): Promise<string> {
-    jwt.verify(value, this.secret);
-    return null;
+  async decrypt(token: string): Promise<string> {
+    const value: any = jwt.verify(token, this.secret);
+    return value;
   }
 }
