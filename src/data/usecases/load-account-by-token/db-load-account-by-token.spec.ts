@@ -1,16 +1,34 @@
+/* eslint-disable max-classes-per-file */
 import { IDecrypter } from '../../protocols/criptography/decrypter';
 import { DbLoadAccountByToken } from './db-load-account-by-token';
 
+const makeDecrypter = (): IDecrypter => {
+  class DecrypterStub implements IDecrypter {
+    async decrypt(value: string): Promise<string> {
+      return new Promise(resolve => resolve('any_value'));
+    }
+  }
+  return new DecrypterStub();
+};
+
+interface ISutTypes {
+  sut: DbLoadAccountByToken;
+  decrypterStub: IDecrypter;
+}
+
+const makeSut = (): ISutTypes => {
+  const decrypterStub = makeDecrypter();
+  const sut = new DbLoadAccountByToken(decrypterStub);
+  return {
+    sut,
+    decrypterStub,
+  };
+};
+
 describe('DbLoadAccountByToken UseCase', () => {
   test('Should call Decrypter with corrects values ', async () => {
-    class DecrypterStub implements IDecrypter {
-      async decrypt(value: string): Promise<string> {
-        return new Promise(resolve => resolve('any_value'));
-      }
-    }
-    const decrypterStub = new DecrypterStub();
+    const { sut, decrypterStub } = makeSut();
     const decryptSpy = jest.spyOn(decrypterStub, 'decrypt');
-    const sut = new DbLoadAccountByToken(decrypterStub);
     await sut.load('any_token');
     expect(decryptSpy).toHaveBeenCalledWith('any_token');
   });
