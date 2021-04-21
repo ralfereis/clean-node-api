@@ -5,6 +5,9 @@ import { makeDbAuthentication } from '../../usecases/authentication/db-authentic
 import { makeLoginValidation } from './login-validation-factory';
 
 export const makeLoginController = (): IController => {
-  const controller = new LoginController(makeDbAuthentication(), makeLoginValidation());
+  const controller = new LoginController(
+    makeDbAuthentication(),
+    makeLoginValidation(),
+  );
   return makeLogControllerDecorator(controller);
 };

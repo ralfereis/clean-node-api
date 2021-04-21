@@ -2,7 +2,11 @@
 import { ILogErrorRepository } from '../../data/protocols/db/log/log-error-repository';
 import { IAccountModel } from '../../domain/models/account';
 import { ok, serverError } from '../../presentation/helpers/http/http-helper';
-import { IController, IHttpRequest, IHttpResponse } from '../../presentation/protocols';
+import {
+  IController,
+  IHttpRequest,
+  IHttpResponse,
+} from '../../presentation/protocols';
 import { LogControllerDecorator } from './log-controller-decorator';
 
 const makeFakeAccount = (): IAccountModel => ({
@@ -54,7 +58,10 @@ interface ISutTypes {
 const makeSut = (): ISutTypes => {
   const controllerStub = makeController();
   const logErrorRepositoryStub = makeLogErrorRepository();
-  const sut = new LogControllerDecorator(controllerStub, logErrorRepositoryStub);
+  const sut = new LogControllerDecorator(
+    controllerStub,
+    logErrorRepositoryStub,
+  );
   return {
     sut,
     controllerStub,
@@ -81,7 +88,9 @@ describe('Log Controller Decorator', () => {
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError');
     jest
       .spyOn(controllerStub, 'handle')
-      .mockReturnValueOnce(new Promise(resolve => resolve(makeFakeServerError())));
+      .mockReturnValueOnce(
+        new Promise(resolve => resolve(makeFakeServerError())),
+      );
     await sut.handle(makeFakeRequest());
     expect(logSpy).toHaveBeenCalledWith('any_stack');
   });
