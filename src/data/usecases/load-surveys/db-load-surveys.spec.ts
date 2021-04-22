@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { ISurveyModel } from '../../../domain/models/survey';
 import { ILoadSurveysRepository } from '../../protocols/db/survey/load-surveys-repository';
 import { DbLoadSurveys } from './db-load-surveys';
@@ -29,16 +30,31 @@ const makeFakeSurveys = (): ISurveyModel[] => {
   ];
 };
 
+const makeLoadSurveysRepository = (): ILoadSurveysRepository => {
+  class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
+    loadAll(): Promise<ISurveyModel[]> {
+      return new Promise(resolve => resolve(makeFakeSurveys()));
+    }
+  }
+  return new LoadSurveysRepositoryStub();
+};
+
+interface ISutTypes {
+  sut: DbLoadSurveys;
+  loadSurveysRepositoryStub: ILoadSurveysRepository;
+}
+const makeSut = (): ISutTypes => {
+  const loadSurveysRepositoryStub = makeLoadSurveysRepository();
+  const sut = new DbLoadSurveys(loadSurveysRepositoryStub);
+  return {
+    sut,
+    loadSurveysRepositoryStub,
+  };
+};
 describe('DbLoadSurveys', () => {
   test('Should call LoadSurveysRepository', async () => {
-    class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
-      loadAll(): Promise<ISurveyModel[]> {
-        return new Promise(resolve => resolve(makeFakeSurveys()));
-      }
-    }
-    const loadSurveysRepositoryStub = new LoadSurveysRepositoryStub();
+    const { sut, loadSurveysRepositoryStub } = makeSut();
     const loadAllSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadAll');
-    const sut = new DbLoadSurveys(loadSurveysRepositoryStub);
     await sut.load();
     expect(loadAllSpy).toHaveBeenCalled();
   });
