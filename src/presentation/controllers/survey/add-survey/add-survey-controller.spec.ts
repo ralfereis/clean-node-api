@@ -1,4 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import Mockdate from 'mockdate';
+
 import {
   badRequest,
   serverError,
@@ -21,6 +23,7 @@ const makeFakeRequest = (): IHttpRequest => ({
         answer: 'any_answer',
       },
     ],
+    date: new Date(),
   },
 });
 
@@ -59,6 +62,12 @@ const makeSut = (): ISutTypes => {
   };
 };
 describe('AddSurvey Controller', () => {
+  beforeAll(() => {
+    Mockdate.set(new Date());
+  });
+  afterAll(() => {
+    Mockdate.reset();
+  });
   test('Should call validation with correct values', async () => {
     const { sut, validationStub } = makeSut();
     const validateSpy = jest.spyOn(validationStub, 'validate');

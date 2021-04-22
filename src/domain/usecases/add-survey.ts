@@ -6,6 +6,7 @@ export interface ISurveyAnswer {
 export interface IAddSurveyModel {
   question: string;
   answers: ISurveyAnswer[];
+  date: Date;
 }
 
 export interface IAddSurvey {

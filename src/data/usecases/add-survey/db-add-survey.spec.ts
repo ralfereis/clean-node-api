@@ -1,4 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import Mockdate from 'mockdate';
+
 import { DbAddSurvey } from './db-add-survey';
 import {
   IAddSurveyModel,
@@ -13,6 +15,7 @@ const makeFakeSurveyData = (): IAddSurveyModel => ({
       answer: 'any_answer',
     },
   ],
+  date: new Date(),
 });
 
 const makeAddSurveyRepository = (): IAddSurveyRepository => {
@@ -39,6 +42,12 @@ const makeSut = (): ISutTypes => {
 };
 
 describe('DbAddSurvey UseCase', () => {
+  beforeAll(() => {
+    Mockdate.set(new Date());
+  });
+  afterAll(() => {
+    Mockdate.reset();
+  });
   test('Should call AddSurveyRepository with correct values', async () => {
     const { sut, addSurveyRepositoryStub } = makeSut();
     const addSpy = jest.spyOn(addSurveyRepositoryStub, 'add');
