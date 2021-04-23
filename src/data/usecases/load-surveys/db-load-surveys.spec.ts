@@ -1,4 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import Mockdate from 'mockdate';
+
 import { ISurveyModel } from '../../../domain/models/survey';
 import { ILoadSurveysRepository } from '../../protocols/db/survey/load-surveys-repository';
 import { DbLoadSurveys } from './db-load-surveys';
@@ -52,6 +54,12 @@ const makeSut = (): ISutTypes => {
   };
 };
 describe('DbLoadSurveys', () => {
+  beforeAll(() => {
+    Mockdate.set(new Date());
+  });
+  afterAll(() => {
+    Mockdate.reset();
+  });
   test('Should call LoadSurveysRepository', async () => {
     const { sut, loadSurveysRepositoryStub } = makeSut();
     const loadAllSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadAll');
