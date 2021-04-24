@@ -1,4 +1,4 @@
-import { IAccountModel } from '../../../usecases/add-account/db-add-account-protocols';
+import { IAccountModel } from '@/domain/models/account';
 
 export interface ILoadAccountByEmailRepository {
   loadByEmail(email: string): Promise<IAccountModel>;

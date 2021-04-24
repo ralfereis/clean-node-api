@@ -1,11 +1,4 @@
 /* eslint-disable max-classes-per-file */
-import Mockdate from 'mockdate';
-
-import {
-  badRequest,
-  serverError,
-  noContent,
-} from '../../../helpers/http/http-helper';
 import { AddSurveyController } from './add-survey-controller';
 import {
   IAddSurvey,
@@ -13,6 +6,13 @@ import {
   IAddSurveyModel,
   IValidation,
 } from './add-survey-controller-protocols';
+import {
+  badRequest,
+  serverError,
+  noContent,
+} from '@/presentation/helpers/http/http-helper';
+
+import Mockdate from 'mockdate';
 
 const makeFakeRequest = (): IHttpRequest => ({
   body: {

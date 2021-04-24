@@ -1,12 +1,12 @@
 /* eslint-disable max-classes-per-file */
-import { AccessDeniedError } from '../errors';
-import { forbidden, ok, serverError } from '../helpers/http/http-helper';
 import { AuthMiddleware } from './auth-middleware';
 import {
   ILoadAccountByToken,
   IHttpRequest,
   IAccountModel,
 } from './auth-middleware-controller-protocols';
+import { AccessDeniedError } from '../errors';
+import { forbidden, ok, serverError } from '../helpers/http/http-helper';
 
 const makeFakeAccount = (): IAccountModel => ({
   id: 'valid_id',

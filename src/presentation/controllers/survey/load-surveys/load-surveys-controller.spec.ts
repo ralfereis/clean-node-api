@@ -1,12 +1,15 @@
 /* eslint-disable max-classes-per-file */
-import Mockdate from 'mockdate';
-
-import { noContent, ok, serverError } from '../../../helpers/http/http-helper';
+import {
+  noContent,
+  ok,
+  serverError,
+} from '@/presentation/helpers/http/http-helper';
 import { LoadSurveysController } from './load-surveys-controller';
 import {
   ISurveyModel,
   ILoadSurveys,
 } from './load-surveys-controller-protocols';
+import Mockdate from 'mockdate';
 
 const makeFakeSurveys = (): ISurveyModel[] => {
   return [

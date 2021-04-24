@@ -1,13 +1,13 @@
 // eslint-disable-next-line max-classes-per-file
-import { ILogErrorRepository } from '../../data/protocols/db/log/log-error-repository';
-import { IAccountModel } from '../../domain/models/account';
-import { ok, serverError } from '../../presentation/helpers/http/http-helper';
+import { LogControllerDecorator } from './log-controller-decorator';
 import {
   IController,
   IHttpRequest,
   IHttpResponse,
-} from '../../presentation/protocols';
-import { LogControllerDecorator } from './log-controller-decorator';
+} from '@/presentation/protocols';
+import { ok, serverError } from '@/presentation/helpers/http/http-helper';
+import { ILogErrorRepository } from '@/data/protocols/db/log/log-error-repository';
+import { IAccountModel } from '@/domain/models/account';
 
 const makeFakeAccount = (): IAccountModel => ({
   id: 'valid_id',
