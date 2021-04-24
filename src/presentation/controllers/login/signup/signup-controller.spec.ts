@@ -1,10 +1,10 @@
 // eslint-disable-next-line max-classes-per-file
 import {
-  IAccountModel,
+  AccountModel,
   IAddAccount,
-  IAddAccountModel,
+  AddAccountModel,
   IAuthentication,
-  IAuthenticationModel,
+  AuthenticationModel,
 } from './signup-controller-protocols';
 import {
   EmailInUserError,
@@ -17,13 +17,13 @@ import {
   serverError,
   forbidden,
 } from '@/presentation/helpers/http/http-helper';
-import { IHttpRequest } from '@/presentation/protocols';
+import { HttpRequest } from '@/presentation/protocols';
 import { IValidation } from '@/presentation/protocols/validation';
 import { SignUpController } from './signup-controller';
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(authentication: IAuthenticationModel): Promise<string> {
+    async auth(authentication: AuthenticationModel): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }
@@ -31,7 +31,7 @@ const makeAuthentication = (): IAuthentication => {
   return new AuthenticationStub();
 };
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com',
@@ -40,7 +40,7 @@ const makeFakeAccount = (): IAccountModel => ({
 
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
-    async add(account: IAddAccountModel): Promise<IAccountModel> {
+    async add(account: AddAccountModel): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }
@@ -55,7 +55,7 @@ const makeValidation = (): IValidation => {
   }
   return new ValidationStub();
 };
-const makeFakeRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): HttpRequest => ({
   body: {
     name: 'any_name',
     email: 'any_email@mail.com',
@@ -64,14 +64,14 @@ const makeFakeRequest = (): IHttpRequest => ({
   },
 });
 
-interface ISutTypes {
+type SutTypes = {
   sut: SignUpController;
   addAccountStub: IAddAccount;
   validationStub: IValidation;
   authenticationStub: IAuthentication;
-}
+};
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const authenticationStub = makeAuthentication();
   const addAccountStub = makeAddAccount();
   const validationStub = makeValidation();

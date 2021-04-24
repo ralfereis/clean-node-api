@@ -5,13 +5,10 @@ import {
   serverError,
 } from '@/presentation/helpers/http/http-helper';
 import { LoadSurveysController } from './load-surveys-controller';
-import {
-  ISurveyModel,
-  ILoadSurveys,
-} from './load-surveys-controller-protocols';
+import { SurveyModel, ILoadSurveys } from './load-surveys-controller-protocols';
 import Mockdate from 'mockdate';
 
-const makeFakeSurveys = (): ISurveyModel[] => {
+const makeFakeSurveys = (): SurveyModel[] => {
   return [
     {
       id: 'any_id',
@@ -40,17 +37,17 @@ const makeFakeSurveys = (): ISurveyModel[] => {
 
 const makeLoadSurveys = (): ILoadSurveys => {
   class LoadSurveysStub implements ILoadSurveys {
-    async load(): Promise<ISurveyModel[]> {
+    async load(): Promise<SurveyModel[]> {
       return new Promise(resolve => resolve(makeFakeSurveys()));
     }
   }
   return new LoadSurveysStub();
 };
-interface ISutTypes {
+type SutTypes = {
   sut: LoadSurveysController;
   loadSurveysStub: ILoadSurveys;
-}
-const makeSut = (): ISutTypes => {
+};
+const makeSut = (): SutTypes => {
   const loadSurveysStub = makeLoadSurveys();
   const sut = new LoadSurveysController(loadSurveysStub);
   return {

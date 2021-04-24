@@ -11,12 +11,12 @@ const makeEmailValidator = (): IEmailValidator => {
   return new EmailValidatorStub();
 };
 
-interface ISutTypes {
+type SutTypes = {
   sut: EmailValidation;
   emailValidatorStub: IEmailValidator;
-}
+};
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const emailValidatorStub = makeEmailValidator();
   const sut = new EmailValidation('email', emailValidatorStub);
   return {

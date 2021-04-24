@@ -1,6 +1,6 @@
 import {
-  IHttpRequest,
-  IHttpResponse,
+  HttpRequest,
+  HttpResponse,
   IMiddleware,
   ILoadAccountByToken,
 } from './auth-middleware-controller-protocols';
@@ -12,7 +12,7 @@ export class AuthMiddleware implements IMiddleware {
     private readonly loadAccountByToken: ILoadAccountByToken,
     private readonly role?: string,
   ) {}
-  async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const accessToken = httpRequest.headers?.['x-access-token'];
       if (accessToken) {

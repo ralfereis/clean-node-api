@@ -1,11 +1,11 @@
 /* eslint-disable max-classes-per-file */
 
 import { DbLoadAccountByToken } from './db-load-account-by-token';
-import { IAccountModel } from '@/domain/models/account';
+import { AccountModel } from '@/domain/models/account';
 import { IDecrypter } from '@/data/protocols/criptography/decrypter';
 import { ILoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository';
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com',
@@ -23,20 +23,20 @@ const makeDecrypter = (): IDecrypter => {
 const makeLoadAccountByTokenRepository = (): ILoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub
     implements ILoadAccountByTokenRepository {
-    async loadByToken(token: string, role?: string): Promise<IAccountModel> {
+    async loadByToken(token: string, role?: string): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }
   return new LoadAccountByTokenRepositoryStub();
 };
 
-interface ISutTypes {
+type SutTypes = {
   sut: DbLoadAccountByToken;
   decrypterStub: IDecrypter;
   loadAccountByTokenRepositoryStub: ILoadAccountByTokenRepository;
-}
+};
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const loadAccountByTokenRepositoryStub = makeLoadAccountByTokenRepository();
   const decrypterStub = makeDecrypter();
   const sut = new DbLoadAccountByToken(

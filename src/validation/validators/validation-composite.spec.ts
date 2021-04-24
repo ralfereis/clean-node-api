@@ -11,12 +11,12 @@ const makeValidation = (): IValidation => {
   return new ValidationStub();
 };
 
-interface ISutTypes {
+type SutTypes = {
   sut: ValidationComposite;
   validationStubs: IValidation[];
-}
+};
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const validationStubs = [makeValidation(), makeValidation()];
   const sut = new ValidationComposite(validationStubs);
   return {
