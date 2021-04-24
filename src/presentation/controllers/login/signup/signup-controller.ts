@@ -1,11 +1,3 @@
-import { EmailInUserError } from '../../../errors';
-import {
-  badRequest,
-  forbidden,
-  ok,
-  serverError,
-} from '../../../helpers/http/http-helper';
-import { IValidation } from '../../../protocols/validation';
 import {
   IAddAccount,
   IController,
@@ -13,6 +5,14 @@ import {
   IHttpResponse,
   IAuthentication,
 } from './signup-controller-protocols';
+import { EmailInUserError } from '@/presentation/errors';
+import {
+  badRequest,
+  forbidden,
+  ok,
+  serverError,
+} from '@/presentation/helpers/http/http-helper';
+import { IValidation } from '@/presentation/protocols/validation';
 
 export class SignUpController implements IController {
   constructor(

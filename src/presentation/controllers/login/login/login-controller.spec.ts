@@ -1,15 +1,15 @@
 // eslint-disable-next-line max-classes-per-file
-import { IAuthenticationModel } from '../../../../domain/usecases/authentication';
-import { MissingParamError } from '../../../errors';
+import { LoginController } from './login-controller';
+import { IHttpRequest, IAuthentication } from './login-controller-protocols';
+import { IAuthenticationModel } from '@/domain/usecases/authentication';
+import { MissingParamError } from '@/presentation/errors';
 import {
   badRequest,
   ok,
   serverError,
   unauthorized,
-} from '../../../helpers/http/http-helper';
-import { IValidation } from '../../../protocols';
-import { LoginController } from './login-controller';
-import { IHttpRequest, IAuthentication } from './login-controller-protocols';
+} from '@/presentation/helpers/http/http-helper';
+import { IValidation } from '@/presentation/protocols';
 
 const makeValidation = (): IValidation => {
   class ValidationStub implements IValidation {

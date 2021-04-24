@@ -47,6 +47,7 @@
         "no-useless-constructor": "off",
         "no-empty-function": "off",
         "lines-between-class-members": "off",
+        "import/order": "off",
         "import/extensions": [
             "error",
             "ignorePackages",
@@ -54,16 +55,7 @@
                 "ts": "never"
             }
         ],
-        "import-helpers/order-imports": [
-            "warn",
-            {
-                "newlinesBetween": "always",
-                "groups": ["module", "/^@shared/", ["parent", "sibling", "index"]],
-                "alphabetize": { "order": "asc", "ignoreCase": true }
-            }
-        ],
         "import/no-extraneous-dependencies": "off"
-
     },
     "settings": {
         "import/resolver": {

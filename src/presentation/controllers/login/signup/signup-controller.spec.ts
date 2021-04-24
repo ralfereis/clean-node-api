@@ -1,25 +1,25 @@
 // eslint-disable-next-line max-classes-per-file
 import {
-  EmailInUserError,
-  MissingParamError,
-  ServerError,
-} from '../../../errors';
-import {
-  badRequest,
-  ok,
-  serverError,
-  forbidden,
-} from '../../../helpers/http/http-helper';
-import { IHttpRequest } from '../../../protocols';
-import { IValidation } from '../../../protocols/validation';
-import { SignUpController } from './signup-controller';
-import {
   IAccountModel,
   IAddAccount,
   IAddAccountModel,
   IAuthentication,
   IAuthenticationModel,
 } from './signup-controller-protocols';
+import {
+  EmailInUserError,
+  MissingParamError,
+  ServerError,
+} from '@/presentation/errors';
+import {
+  badRequest,
+  ok,
+  serverError,
+  forbidden,
+} from '@/presentation/helpers/http/http-helper';
+import { IHttpRequest } from '@/presentation/protocols';
+import { IValidation } from '@/presentation/protocols/validation';
+import { SignUpController } from './signup-controller';
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {

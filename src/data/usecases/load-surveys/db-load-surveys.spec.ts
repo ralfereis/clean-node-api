@@ -1,9 +1,7 @@
-/* eslint-disable max-classes-per-file */
-import Mockdate from 'mockdate';
-
-import { ISurveyModel } from '../../../domain/models/survey';
-import { ILoadSurveysRepository } from '../../protocols/db/survey/load-surveys-repository';
 import { DbLoadSurveys } from './db-load-surveys';
+import { ISurveyModel } from '@/domain/models/survey';
+import { ILoadSurveysRepository } from '@/data/protocols/db/survey/load-surveys-repository';
+import Mockdate from 'mockdate';
 
 const makeFakeSurveys = (): ISurveyModel[] => {
   return [
