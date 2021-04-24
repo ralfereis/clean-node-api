@@ -1,7 +1,7 @@
 import {
-  IAccountModel,
+  AccountModel,
   IAddAccount,
-  IAddAccountModel,
+  AddAccountModel,
   IHasher,
   ILoadAccountByEmailRepository,
   IAddAccountRepository,
@@ -13,7 +13,7 @@ export class DbAddAccount implements IAddAccount {
     private readonly addAccountRepository: IAddAccountRepository,
     private readonly loadAccountByEmailRepository: ILoadAccountByEmailRepository,
   ) {}
-  async add(accountData: IAddAccountModel): Promise<IAccountModel> {
+  async add(accountData: AddAccountModel): Promise<AccountModel> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(
       accountData.email,
     );

@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { LoginController } from './login-controller';
-import { IHttpRequest, IAuthentication } from './login-controller-protocols';
-import { IAuthenticationModel } from '@/domain/usecases/authentication';
+import { HttpRequest, IAuthentication } from './login-controller-protocols';
+import { AuthenticationModel } from '@/domain/usecases/authentication';
 import { MissingParamError } from '@/presentation/errors';
 import {
   badRequest,
@@ -22,7 +22,7 @@ const makeValidation = (): IValidation => {
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(authentication: IAuthenticationModel): Promise<string> {
+    async auth(authentication: AuthenticationModel): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }
@@ -30,20 +30,20 @@ const makeAuthentication = (): IAuthentication => {
   return new AuthenticationStub();
 };
 
-const makeFakeRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): HttpRequest => ({
   body: {
     email: 'any_email@mail.com',
     password: 'any_password',
   },
 });
 
-interface ISutTypes {
+type SutTypes = {
   sut: LoginController;
   authenticationStub: IAuthentication;
   validationStub: IValidation;
-}
+};
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const authenticationStub = makeAuthentication();
   const validationStub = makeValidation();
   const sut = new LoginController(authenticationStub, validationStub);

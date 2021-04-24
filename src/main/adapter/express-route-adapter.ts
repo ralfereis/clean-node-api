@@ -1,9 +1,9 @@
-import { IController, IHttpRequest } from '@/presentation/protocols';
+import { IController, HttpRequest } from '@/presentation/protocols';
 import { Request, Response } from 'express';
 
 export const adaptRoute = (controller: IController) => {
   return async (request: Request, response: Response) => {
-    const httpRequest: IHttpRequest = {
+    const httpRequest: HttpRequest = {
       body: request.body,
     };
     const httpResponse = await controller.handle(httpRequest);

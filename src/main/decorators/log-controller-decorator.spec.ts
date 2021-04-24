@@ -2,21 +2,21 @@
 import { LogControllerDecorator } from './log-controller-decorator';
 import {
   IController,
-  IHttpRequest,
-  IHttpResponse,
+  HttpRequest,
+  HttpResponse,
 } from '@/presentation/protocols';
 import { ok, serverError } from '@/presentation/helpers/http/http-helper';
 import { ILogErrorRepository } from '@/data/protocols/db/log/log-error-repository';
-import { IAccountModel } from '@/domain/models/account';
+import { AccountModel } from '@/domain/models/account';
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com',
   password: 'valid_password',
 });
 
-const makeFakeServerError = (): IHttpResponse => {
+const makeFakeServerError = (): HttpResponse => {
   const fakeError = new Error();
   fakeError.stack = 'any_stack';
   return serverError(fakeError);
@@ -33,14 +33,14 @@ const makeLogErrorRepository = (): ILogErrorRepository => {
 
 const makeController = (): IController => {
   class ControllerStub implements IController {
-    async handle(httpRequest: IHttpRequest): Promise<IHttpResponse> {
+    async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
       return new Promise(resolve => resolve(ok(makeFakeAccount())));
     }
   }
   return new ControllerStub();
 };
 
-const makeFakeRequest = (): IHttpRequest => ({
+const makeFakeRequest = (): HttpRequest => ({
   body: {
     name: 'any_name',
     email: 'any_email@mail.com',
@@ -49,13 +49,13 @@ const makeFakeRequest = (): IHttpRequest => ({
   },
 });
 
-interface ISutTypes {
+type SutTypes = {
   sut: LogControllerDecorator;
   controllerStub: IController;
   logErrorRepositoryStub: ILogErrorRepository;
-}
+};
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const controllerStub = makeController();
   const logErrorRepositoryStub = makeLogErrorRepository();
   const sut = new LogControllerDecorator(

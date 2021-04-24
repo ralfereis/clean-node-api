@@ -1,22 +1,22 @@
 // eslint-disable-next-line max-classes-per-file
 import { DbAuthentication } from './db-authentication';
 import {
-  IAuthenticationModel,
-  IAccountModel,
+  AuthenticationModel,
+  AccountModel,
   IUpdateAccessTokenRepository,
   ILoadAccountByEmailRepository,
   IEncrypter,
   IHashComparer,
 } from './db-authentication-protocols';
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'any_id',
   name: 'any_name',
   email: 'any_email@mail.com',
   password: 'hashed_password',
 });
 
-const makeFakeAuthentication = (): IAuthenticationModel => ({
+const makeFakeAuthentication = (): AuthenticationModel => ({
   email: 'any_email@mail.com',
   password: 'any_password',
 });
@@ -24,7 +24,7 @@ const makeFakeAuthentication = (): IAuthenticationModel => ({
 const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub
     implements ILoadAccountByEmailRepository {
-    async loadByEmail(email: string): Promise<IAccountModel> {
+    async loadByEmail(email: string): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }
@@ -57,15 +57,15 @@ const makeUpdateAccessTokenRepository = (): IUpdateAccessTokenRepository => {
   return new UpdateAccessTokenRepositoryStub();
 };
 
-interface ISutTypes {
+type SutTypes = {
   sut: DbAuthentication;
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository;
   hashComparerStub: IHashComparer;
   EncrypterStub: IEncrypter;
   updateAccessTokenRepositoryStub: IUpdateAccessTokenRepository;
-}
+};
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository();
   const hashComparerStub = makeHashComparer();
   const EncrypterStub = makeEncrypter();

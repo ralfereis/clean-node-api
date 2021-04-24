@@ -3,8 +3,8 @@ import { DbAddAccount } from './db-add-account';
 import {
   IHasher,
   ILoadAccountByEmailRepository,
-  IAccountModel,
-  IAddAccountModel,
+  AccountModel,
+  AddAccountModel,
   IAddAccountRepository,
 } from './db-add-account-protocols';
 
@@ -17,7 +17,7 @@ const makeHasher = (): IHasher => {
   return new HasherStub();
 };
 
-const makeFakeAccount = (): IAccountModel => ({
+const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@mail.com',
@@ -26,14 +26,14 @@ const makeFakeAccount = (): IAccountModel => ({
 
 const makeAddAccountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {
-    async add(accountData: IAddAccountModel): Promise<IAccountModel> {
+    async add(accountData: AddAccountModel): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }
   return new AddAccountRepositoryStub();
 };
 
-const makeFakeAccountData = (): IAddAccountModel => ({
+const makeFakeAccountData = (): AddAccountModel => ({
   name: 'valid_name',
   email: 'valid_email@mail.com',
   password: 'valid_password',
@@ -42,21 +42,21 @@ const makeFakeAccountData = (): IAddAccountModel => ({
 const makeLoadAccountByEmailRepository = (): ILoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub
     implements ILoadAccountByEmailRepository {
-    async loadByEmail(email: string): Promise<IAccountModel> {
+    async loadByEmail(email: string): Promise<AccountModel> {
       return new Promise(resolve => resolve(null));
     }
   }
   return new LoadAccountByEmailRepositoryStub();
 };
 
-interface ISutTypes {
+type SutTypes = {
   sut: DbAddAccount;
   hasherStub: IHasher;
   addAccountRepositoryStub: IAddAccountRepository;
   loadAccountByEmailRepositoryStub: ILoadAccountByEmailRepository;
-}
+};
 
-const makeSut = (): ISutTypes => {
+const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository();
   const hasherStub = makeHasher();
   const addAccountRepositoryStub = makeAddAccountRepository();
