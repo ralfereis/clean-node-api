@@ -66,7 +66,7 @@ describe('DbLoadSurveys', () => {
   });
 
   test('Should return a list of Surveys on success', async () => {
-    const { sut, loadSurveysRepositoryStub } = makeSut();
+    const { sut } = makeSut();
     const surveys = await sut.load();
     expect(surveys).toEqual(makeFakeSurveys());
   });
