@@ -1,9 +1,10 @@
 /* eslint-disable max-classes-per-file */
-
 import { DbLoadAccountByToken } from './db-load-account-by-token';
-import { AccountModel } from '@/domain/models/account';
-import { IDecrypter } from '@/data/protocols/criptography/decrypter';
-import { ILoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository';
+import {
+  AccountModel,
+  IDecrypter,
+  ILoadAccountByTokenRepository,
+} from './db-load-account-by-protocols';
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
