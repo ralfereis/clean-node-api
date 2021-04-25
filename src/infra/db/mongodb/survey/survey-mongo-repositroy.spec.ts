@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { SurveyMongoRepository } from './survey-mongo-repository';
 import { MongoHelper } from '../helpers/mongo-helper';
 import { Collection } from 'mongodb';
@@ -79,6 +80,24 @@ describe('Survey Mongo Repository', () => {
       const sut = makeSut();
       const surveys = await sut.loadAll();
       expect(surveys.length).toBe(0);
+    });
+  });
+
+  describe('loadById()', () => {
+    test('Should load survey by id on success', async () => {
+      const result = await surveyCollection.insertOne({
+        question: 'any_question',
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer',
+          },
+        ],
+        date: new Date(),
+      });
+      const sut = makeSut();
+      const survey = await sut.loadById(result.ops[0]._id);
+      expect(survey).toBeTruthy();
     });
   });
 });
