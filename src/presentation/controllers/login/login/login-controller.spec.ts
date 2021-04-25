@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { LoginController } from './login-controller';
 import { HttpRequest, IAuthentication } from './login-controller-protocols';
-import { AuthenticationModel } from '@/domain/usecases/authentication';
+import { AuthenticationModel } from '@/domain/usecases/account/authentication';
 import { MissingParamError } from '@/presentation/errors';
 import {
   badRequest,
