@@ -2,9 +2,37 @@
   "cSpell.words": [
     "decrypter",
     "mockdate",
-    "signup"
+    "signup",
+    "camelcase",
+    "cavalcante",
+    "com",
+    "coverage",
+    "criptography",
+    "dtos",
+    "encrypter",
+    "gmail",
+    "hasher",
+    "info",
+    "jsxdev",
+    "lcov",
+    "middlewares",
+    "openapi",
+    "originalname",
+    "pgdata",
+    "postgres",
+    "ralfe",
+    "reis",
+    "rentalx",
+    "respawn",
+    "stub",
+    "tsyringe",
+    "typeorm",
+    "upsert",
+    "uuidv",
+    "varchar"
   ],
   "cSpell.ignoreWords": [
     "usecases"
-  ]
+  ],
+  "editor.parameterHints.enabled": false
 }
