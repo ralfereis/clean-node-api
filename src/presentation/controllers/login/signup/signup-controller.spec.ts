@@ -2,9 +2,9 @@
 import {
   AccountModel,
   IAddAccount,
-  AddAccountModel,
+  AddAccountParams,
   IAuthentication,
-  AuthenticationModel,
+  AuthenticationParams,
 } from './signup-controller-protocols';
 import {
   EmailInUserError,
@@ -23,7 +23,7 @@ import { SignUpController } from './signup-controller';
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(authentication: AuthenticationModel): Promise<string> {
+    async auth(authentication: AuthenticationParams): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }
@@ -40,7 +40,7 @@ const makeFakeAccount = (): AccountModel => ({
 
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
-    async add(account: AddAccountModel): Promise<AccountModel> {
+    async add(account: AddAccountParams): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }

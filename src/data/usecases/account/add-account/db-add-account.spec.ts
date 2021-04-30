@@ -4,7 +4,7 @@ import {
   IHasher,
   ILoadAccountByEmailRepository,
   AccountModel,
-  AddAccountModel,
+  AddAccountParams,
   IAddAccountRepository,
 } from './db-add-account-protocols';
 
@@ -26,14 +26,14 @@ const makeFakeAccount = (): AccountModel => ({
 
 const makeAddAccountRepository = (): IAddAccountRepository => {
   class AddAccountRepositoryStub implements IAddAccountRepository {
-    async add(accountData: AddAccountModel): Promise<AccountModel> {
+    async add(accountData: AddAccountParams): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()));
     }
   }
   return new AddAccountRepositoryStub();
 };
 
-const makeFakeAccountData = (): AddAccountModel => ({
+const makeFakeAccountData = (): AddAccountParams => ({
   name: 'valid_name',
   email: 'valid_email@mail.com',
   password: 'valid_password',

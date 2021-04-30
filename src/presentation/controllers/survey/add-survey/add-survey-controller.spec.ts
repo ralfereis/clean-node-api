@@ -3,7 +3,7 @@ import { AddSurveyController } from './add-survey-controller';
 import {
   IAddSurvey,
   HttpRequest,
-  AddSurveyModel,
+  AddSurveyParams,
   IValidation,
 } from './add-survey-controller-protocols';
 import {
@@ -38,7 +38,7 @@ const makeValidation = (): IValidation => {
 
 const makeAddSurvey = (): IAddSurvey => {
   class AddSurveyStub implements IAddSurvey {
-    async add(data: AddSurveyModel): Promise<void> {
+    async add(data: AddSurveyParams): Promise<void> {
       return new Promise(resolve => resolve());
     }
   }

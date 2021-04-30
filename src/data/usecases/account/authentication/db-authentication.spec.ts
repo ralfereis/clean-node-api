@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { DbAuthentication } from './db-authentication';
 import {
-  AuthenticationModel,
+  AuthenticationParams,
   AccountModel,
   IUpdateAccessTokenRepository,
   ILoadAccountByEmailRepository,
@@ -16,7 +16,7 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'hashed_password',
 });
 
-const makeFakeAuthentication = (): AuthenticationModel => ({
+const makeFakeAuthentication = (): AuthenticationParams => ({
   email: 'any_email@mail.com',
   password: 'any_password',
 });

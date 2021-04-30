@@ -4,7 +4,7 @@ import {
   HttpRequest,
   ILoadSurveyById,
   ISaveSurveyResult,
-  SaveSurveyResultModel,
+  SaveSurveyResultParams,
   SurveyModel,
   SurveyResultModel,
 } from './save-survey-result-controller-protocols';
@@ -56,7 +56,7 @@ const makeLoadSurveyById = (): ILoadSurveyById => {
 };
 const makeSaveSurveyResult = (): ISaveSurveyResult => {
   class SaveSurveyResultStub implements ISaveSurveyResult {
-    async save(data: SaveSurveyResultModel): Promise<SurveyResultModel> {
+    async save(data: SaveSurveyResultParams): Promise<SurveyResultModel> {
       return new Promise(resolve => resolve(makeFakeSurveyResult()));
     }
   }

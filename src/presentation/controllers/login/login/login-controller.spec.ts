@@ -1,7 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import { LoginController } from './login-controller';
 import { HttpRequest, IAuthentication } from './login-controller-protocols';
-import { AuthenticationModel } from '@/domain/usecases/account/authentication';
+import { AuthenticationParams } from '@/domain/usecases/account/authentication';
 import { MissingParamError } from '@/presentation/errors';
 import {
   badRequest,
@@ -22,7 +22,7 @@ const makeValidation = (): IValidation => {
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
-    async auth(authentication: AuthenticationModel): Promise<string> {
+    async auth(authentication: AuthenticationParams): Promise<string> {
       return new Promise(resolve => resolve('any_token'));
     }
   }
