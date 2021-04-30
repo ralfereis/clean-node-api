@@ -20,6 +20,7 @@ import {
 import { HttpRequest } from '@/presentation/protocols';
 import { IValidation } from '@/presentation/protocols/validation';
 import { SignUpController } from './signup-controller';
+import { mockAccountModel, throwNewError } from '@/domain/test';
 
 const makeAuthentication = (): IAuthentication => {
   class AuthenticationStub implements IAuthentication {
@@ -31,17 +32,10 @@ const makeAuthentication = (): IAuthentication => {
   return new AuthenticationStub();
 };
 
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@mail.com',
-  password: 'valid_password',
-});
-
 const makeAddAccount = (): IAddAccount => {
   class AddAccountStub implements IAddAccount {
     async add(account: AddAccountParams): Promise<AccountModel> {
-      return new Promise(resolve => resolve(makeFakeAccount()));
+      return new Promise(resolve => resolve(mockAccountModel()));
     }
   }
   return new AddAccountStub();
@@ -158,9 +152,7 @@ describe('SignUp Controller', () => {
     const { sut, authenticationStub } = makeSut();
     jest
       .spyOn(authenticationStub, 'auth')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockImplementationOnce(throwNewError);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });

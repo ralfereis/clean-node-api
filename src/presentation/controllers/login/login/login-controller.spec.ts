@@ -10,6 +10,7 @@ import {
   unauthorized,
 } from '@/presentation/helpers/http/http-helper';
 import { IValidation } from '@/presentation/protocols';
+import { throwNewError } from '@/domain/test';
 
 const makeValidation = (): IValidation => {
   class ValidationStub implements IValidation {
@@ -78,9 +79,7 @@ describe('Login Controller', () => {
     const { sut, authenticationStub } = makeSut();
     jest
       .spyOn(authenticationStub, 'auth')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockImplementationOnce(throwNewError);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });

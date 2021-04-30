@@ -1,4 +1,5 @@
-/* eslint-disable max-classes-per-file */
+import { mockAddSurveyRepository } from '@/data/test';
+import { throwNewError } from '@/domain/test';
 import Mockdate from 'mockdate';
 
 import { DbAddSurvey } from './db-add-survey';
@@ -18,22 +19,13 @@ const makeFakeSurveyData = (): AddSurveyParams => ({
   date: new Date(),
 });
 
-const makeAddSurveyRepository = (): IAddSurveyRepository => {
-  class AddSurveyRepositoryStub implements IAddSurveyRepository {
-    add(surveyData: AddSurveyParams): Promise<void> {
-      return new Promise(resolve => resolve());
-    }
-  }
-  return new AddSurveyRepositoryStub();
-};
-
 type SutTypes = {
   sut: DbAddSurvey;
   addSurveyRepositoryStub: IAddSurveyRepository;
 };
 
 const makeSut = (): SutTypes => {
-  const addSurveyRepositoryStub = makeAddSurveyRepository();
+  const addSurveyRepositoryStub = mockAddSurveyRepository();
   const sut = new DbAddSurvey(addSurveyRepositoryStub);
   return {
     sut,
@@ -60,9 +52,7 @@ describe('DbAddSurvey UseCase', () => {
     const { sut, addSurveyRepositoryStub } = makeSut();
     jest
       .spyOn(addSurveyRepositoryStub, 'add')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockImplementationOnce(throwNewError);
     const promise = sut.add(makeFakeSurveyData());
     await expect(promise).rejects.toThrow();
   });

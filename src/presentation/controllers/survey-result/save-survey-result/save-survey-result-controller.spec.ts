@@ -15,6 +15,7 @@ import {
   serverError,
 } from '@/presentation/helpers/http/http-helper';
 import Mockdate from 'mockdate';
+import { mockSurveyModel, throwNewError } from '@/domain/test';
 
 const makeFakeRequest = (): HttpRequest => ({
   params: {
@@ -24,18 +25,6 @@ const makeFakeRequest = (): HttpRequest => ({
     answer: 'any_answer',
   },
   accountId: 'any_account_id',
-});
-
-const makeFakeSurvey = (): SurveyModel => ({
-  id: 'any_id',
-  question: 'any_question',
-  answers: [
-    {
-      image: 'any_image',
-      answer: 'any_answer',
-    },
-  ],
-  date: new Date(),
 });
 
 const makeFakeSurveyResult = (): SurveyResultModel => ({
@@ -49,7 +38,7 @@ const makeFakeSurveyResult = (): SurveyResultModel => ({
 const makeLoadSurveyById = (): ILoadSurveyById => {
   class LoadSurveyByIdStub implements ILoadSurveyById {
     async loadById(id: string): Promise<SurveyModel> {
-      return new Promise(resolve => resolve(makeFakeSurvey()));
+      return new Promise(resolve => resolve(mockSurveyModel()));
     }
   }
   return new LoadSurveyByIdStub();
@@ -110,9 +99,7 @@ describe('SaveSurveyResult Controller', () => {
     const { sut, loadSurveyByIdStub } = makeSut();
     jest
       .spyOn(loadSurveyByIdStub, 'loadById')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockImplementationOnce(throwNewError);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
@@ -146,9 +133,7 @@ describe('SaveSurveyResult Controller', () => {
     const { sut, saveSurveyResultStub } = makeSut();
     jest
       .spyOn(saveSurveyResultStub, 'save')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockImplementationOnce(throwNewError);
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });

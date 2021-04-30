@@ -1,39 +1,15 @@
-import {
-  ILoadSurveyByIdRepository,
-  SurveyModel,
-} from './db-load-survey-by-id-protocols';
+import { ILoadSurveyByIdRepository } from './db-load-survey-by-id-protocols';
 import { DbLoadSurveyById } from './db-load-survey-by-id';
 import Mockdate from 'mockdate';
-
-const makeFakeSurvey = (): SurveyModel => {
-  return {
-    id: 'any_id',
-    question: 'any_question',
-    answers: [
-      {
-        image: 'any_image',
-        answer: 'any_answer',
-      },
-    ],
-    date: new Date(),
-  };
-};
-
-const makeLoadSurveyByIdRepository = (): ILoadSurveyByIdRepository => {
-  class LoadSurveyByIdRepositoryStub implements ILoadSurveyByIdRepository {
-    loadById(id: string): Promise<SurveyModel> {
-      return new Promise(resolve => resolve(makeFakeSurvey()));
-    }
-  }
-  return new LoadSurveyByIdRepositoryStub();
-};
+import { mockSurveyModel, throwNewError } from '@/domain/test';
+import { mockLoadSurveyByIdRepository } from '@/data/test';
 
 type SutTypes = {
   sut: DbLoadSurveyById;
   loadSurveyByIdRepositoryStub: ILoadSurveyByIdRepository;
 };
 const makeSut = (): SutTypes => {
-  const loadSurveyByIdRepositoryStub = makeLoadSurveyByIdRepository();
+  const loadSurveyByIdRepositoryStub = mockLoadSurveyByIdRepository();
   const sut = new DbLoadSurveyById(loadSurveyByIdRepositoryStub);
   return {
     sut,
@@ -58,16 +34,14 @@ describe('DbLoadSurveyById', () => {
   test('Should return Survey on success', async () => {
     const { sut } = makeSut();
     const surveys = await sut.loadById('any_id');
-    expect(surveys).toEqual(makeFakeSurvey());
+    expect(surveys).toEqual(mockSurveyModel());
   });
 
   test('Should throw if LoadSurveysRepository throws', async () => {
     const { sut, loadSurveyByIdRepositoryStub } = makeSut();
     jest
       .spyOn(loadSurveyByIdRepositoryStub, 'loadById')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+      .mockImplementationOnce(throwNewError);
     const promise = sut.loadById('any_id');
     await expect(promise).rejects.toThrow();
   });
