@@ -1,54 +1,20 @@
-/* eslint-disable max-classes-per-file */
 import {
   noContent,
   ok,
   serverError,
 } from '@/presentation/helpers/http/http-helper';
 import { LoadSurveysController } from './load-surveys-controller';
-import { SurveyModel, ILoadSurveys } from './load-surveys-controller-protocols';
+import { ILoadSurveys } from './load-surveys-controller-protocols';
 import Mockdate from 'mockdate';
+import { mockSurveysModels, throwNewError } from '@/domain/test';
+import { mockLoadSurveys } from '@/presentation/test';
 
-const makeFakeSurveys = (): SurveyModel[] => {
-  return [
-    {
-      id: 'any_id',
-      question: 'any_question',
-      answers: [
-        {
-          image: 'any_image',
-          answer: 'any_answer',
-        },
-      ],
-      date: new Date(),
-    },
-    {
-      id: 'other_id',
-      question: 'other_question',
-      answers: [
-        {
-          image: 'other_image',
-          answer: 'other_answer',
-        },
-      ],
-      date: new Date(),
-    },
-  ];
-};
-
-const makeLoadSurveys = (): ILoadSurveys => {
-  class LoadSurveysStub implements ILoadSurveys {
-    async load(): Promise<SurveyModel[]> {
-      return new Promise(resolve => resolve(makeFakeSurveys()));
-    }
-  }
-  return new LoadSurveysStub();
-};
 type SutTypes = {
   sut: LoadSurveysController;
   loadSurveysStub: ILoadSurveys;
 };
 const makeSut = (): SutTypes => {
-  const loadSurveysStub = makeLoadSurveys();
+  const loadSurveysStub = mockLoadSurveys();
   const sut = new LoadSurveysController(loadSurveysStub);
   return {
     sut,
@@ -73,7 +39,7 @@ describe('LoadSurveys Controller', () => {
   test('Should return 200 on success', async () => {
     const { sut } = makeSut();
     const httpResponse = await sut.handle({});
-    expect(httpResponse).toEqual(ok(makeFakeSurveys()));
+    expect(httpResponse).toEqual(ok(mockSurveysModels()));
   });
 
   test('Should return 204 if LoadSurveys empty ', async () => {
@@ -87,11 +53,7 @@ describe('LoadSurveys Controller', () => {
 
   test('Should return 500 if LoadSurveys throws', async () => {
     const { sut, loadSurveysStub } = makeSut();
-    jest
-      .spyOn(loadSurveysStub, 'load')
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error())),
-      );
+    jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(throwNewError);
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(serverError(new Error()));
   });
