@@ -7,7 +7,7 @@ import {
 import {
   mockAccountModel,
   mockAddAccountParams,
-  throwNewError,
+  throwError,
 } from '@/domain/test';
 import {
   mockAddAccountRepository,
@@ -26,7 +26,7 @@ const makeSut = (): SutTypes => {
   const loadAccountByEmailRepositoryStub = mockLoadAccountByEmailRepository();
   jest
     .spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
-    .mockReturnValue(new Promise(resolve => resolve(null)));
+    .mockReturnValue(Promise.resolve(null));
   const hasherStub = mockHasher();
   const addAccountRepositoryStub = mockAddAccountRepository();
   const sut = new DbAddAccount(
@@ -52,7 +52,7 @@ describe('DbAddAccount UseCase', () => {
 
   test('Should throw if Hasher throws', async () => {
     const { sut, hasherStub } = makeSut();
-    jest.spyOn(hasherStub, 'hash').mockImplementationOnce(throwNewError);
+    jest.spyOn(hasherStub, 'hash').mockImplementationOnce(throwError);
     const promise = sut.add(mockAddAccountParams());
     await expect(promise).rejects.toThrow();
   });
@@ -72,7 +72,7 @@ describe('DbAddAccount UseCase', () => {
     const { sut, addAccountRepositoryStub } = makeSut();
     jest
       .spyOn(addAccountRepositoryStub, 'add')
-      .mockImplementationOnce(throwNewError);
+      .mockImplementationOnce(throwError);
     const promise = sut.add(mockAddAccountParams());
     await expect(promise).rejects.toThrow();
   });
@@ -87,7 +87,7 @@ describe('DbAddAccount UseCase', () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut();
     jest
       .spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
-      .mockReturnValueOnce(new Promise(resolve => resolve(mockAccountModel())));
+      .mockReturnValueOnce(Promise.resolve(mockAccountModel()));
     const account = await sut.add(mockAddAccountParams());
     expect(account).toBeNull();
   });

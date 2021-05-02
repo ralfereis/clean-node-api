@@ -1,7 +1,7 @@
 import { DbLoadSurveys } from './db-load-surveys';
 import { ILoadSurveysRepository } from './db-load-surveys-protocols';
 import Mockdate from 'mockdate';
-import { mockSurveysModels, throwNewError } from '@/domain/test';
+import { mockSurveysModels, throwError } from '@/domain/test';
 import { mockLoadSurveysRepository } from '@/data/test';
 
 type SutTypes = {
@@ -40,7 +40,7 @@ describe('DbLoadSurveys', () => {
     const { sut, loadSurveysRepositoryStub } = makeSut();
     jest
       .spyOn(loadSurveysRepositoryStub, 'loadAll')
-      .mockImplementationOnce(throwNewError);
+      .mockImplementationOnce(throwError);
     const promise = sut.load();
     await expect(promise).rejects.toThrow();
   });

@@ -1,5 +1,5 @@
 import { mockAddSurveyRepository } from '@/data/test';
-import { mockAddSurveyParams, throwNewError } from '@/domain/test';
+import { mockAddSurveyParams, throwError } from '@/domain/test';
 import Mockdate from 'mockdate';
 
 import { DbAddSurvey } from './db-add-survey';
@@ -38,7 +38,7 @@ describe('DbAddSurvey UseCase', () => {
     const { sut, addSurveyRepositoryStub } = makeSut();
     jest
       .spyOn(addSurveyRepositoryStub, 'add')
-      .mockImplementationOnce(throwNewError);
+      .mockImplementationOnce(throwError);
     const promise = sut.add(mockAddSurveyParams());
     await expect(promise).rejects.toThrow();
   });

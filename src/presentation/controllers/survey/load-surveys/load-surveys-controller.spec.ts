@@ -6,7 +6,7 @@ import {
 import { LoadSurveysController } from './load-surveys-controller';
 import { ILoadSurveys } from './load-surveys-controller-protocols';
 import Mockdate from 'mockdate';
-import { mockSurveysModels, throwNewError } from '@/domain/test';
+import { mockSurveysModels, throwError } from '@/domain/test';
 import { mockLoadSurveys } from '@/presentation/test';
 
 type SutTypes = {
@@ -46,14 +46,14 @@ describe('LoadSurveys Controller', () => {
     const { sut, loadSurveysStub } = makeSut();
     jest
       .spyOn(loadSurveysStub, 'load')
-      .mockReturnValueOnce(new Promise(resolve => resolve([])));
+      .mockReturnValueOnce(Promise.resolve([]));
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(noContent());
   });
 
   test('Should return 500 if LoadSurveys throws', async () => {
     const { sut, loadSurveysStub } = makeSut();
-    jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(throwNewError);
+    jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(throwError);
     const httpResponse = await sut.handle({});
     expect(httpResponse).toEqual(serverError(new Error()));
   });

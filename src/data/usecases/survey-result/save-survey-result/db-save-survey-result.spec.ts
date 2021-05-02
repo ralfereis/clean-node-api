@@ -4,7 +4,7 @@ import { mockSaveSurveyResultRepository } from '@/data/test';
 import {
   mockSaveSurveyResultParams,
   mockSurveyResultModel,
-  throwNewError,
+  throwError,
 } from '@/domain/test';
 import Mockdate from 'mockdate';
 
@@ -42,7 +42,7 @@ describe('DbAddSurvey UseCase', () => {
     const { sut, saveSurveyResultRepositoryStub } = makeSut();
     jest
       .spyOn(saveSurveyResultRepositoryStub, 'save')
-      .mockImplementationOnce(throwNewError);
+      .mockImplementationOnce(throwError);
     const promise = sut.save(mockSaveSurveyResultParams());
     await expect(promise).rejects.toThrow();
   });

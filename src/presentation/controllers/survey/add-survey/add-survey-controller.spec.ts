@@ -10,7 +10,7 @@ import {
   noContent,
 } from '@/presentation/helpers/http/http-helper';
 import { mockAddSurvey, mockValidation } from '@/presentation/test';
-import { throwNewError } from '@/domain/test';
+import { throwError } from '@/domain/test';
 import Mockdate from 'mockdate';
 
 const mockRequest = (): HttpRequest => ({
@@ -75,7 +75,7 @@ describe('AddSurvey Controller', () => {
 
   test('Should return 500 if AddSurvey throws', async () => {
     const { sut, addSurveyStub } = makeSut();
-    jest.spyOn(addSurveyStub, 'add').mockImplementationOnce(throwNewError);
+    jest.spyOn(addSurveyStub, 'add').mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });

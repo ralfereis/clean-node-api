@@ -1,7 +1,7 @@
 import { ILoadSurveyByIdRepository } from './db-load-survey-by-id-protocols';
 import { DbLoadSurveyById } from './db-load-survey-by-id';
 import Mockdate from 'mockdate';
-import { mockSurveyModel, throwNewError } from '@/domain/test';
+import { mockSurveyModel, throwError } from '@/domain/test';
 import { mockLoadSurveyByIdRepository } from '@/data/test';
 
 type SutTypes = {
@@ -41,7 +41,7 @@ describe('DbLoadSurveyById', () => {
     const { sut, loadSurveyByIdRepositoryStub } = makeSut();
     jest
       .spyOn(loadSurveyByIdRepositoryStub, 'loadById')
-      .mockImplementationOnce(throwNewError);
+      .mockImplementationOnce(throwError);
     const promise = sut.loadById('any_id');
     await expect(promise).rejects.toThrow();
   });

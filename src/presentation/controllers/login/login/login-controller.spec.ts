@@ -9,7 +9,7 @@ import {
 } from '@/presentation/helpers/http/http-helper';
 import { IValidation } from '@/presentation/protocols';
 import { mockAuthentication, mockValidation } from '@/presentation/test';
-import { throwNewError } from '@/domain/test';
+import { throwError } from '@/domain/test';
 
 const mockRequest = (): HttpRequest => ({
   body: {
@@ -50,16 +50,14 @@ describe('Login Controller', () => {
     const { sut, authenticationStub } = makeSut();
     jest
       .spyOn(authenticationStub, 'auth')
-      .mockReturnValueOnce(new Promise(resolve => resolve(null)));
+      .mockReturnValueOnce(Promise.resolve(null));
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(unauthorized());
   });
 
   test('Should return 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut();
-    jest
-      .spyOn(authenticationStub, 'auth')
-      .mockImplementationOnce(throwNewError);
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
   });
