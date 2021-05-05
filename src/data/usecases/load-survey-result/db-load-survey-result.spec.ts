@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { DbLoadSurveyResult } from './db-load-survey-result';
-import { ILoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository';
+import { ILoadSurveyResultRepository } from './db-load-survey-result-protocols';
 import { mockLoadSurveyResultRepository } from '@/data/test';
 
 type SutTypes = {
