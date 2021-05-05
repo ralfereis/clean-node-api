@@ -29,10 +29,15 @@
     "typeorm",
     "upsert",
     "uuidv",
-    "varchar"
+    "varchar",
+    "enquete",
+    "enquetes",
+    "cond"
+    
   ],
   "cSpell.ignoreWords": [
     "usecases"
   ],
   "editor.parameterHints.enabled": false
+  
 }

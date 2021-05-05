@@ -44,7 +44,7 @@ describe('Survey Routes', () => {
     await accountCollection.deleteMany({});
   });
 
-  describe('PUT /surveys/:surveyId/results', async () => {
+  describe('PUT /surveys/:surveyId/results', () => {
     test('Should return 403 on save survey result without accessToken', async () => {
       await request(app)
         .put('/api/surveys/any_id/results')
