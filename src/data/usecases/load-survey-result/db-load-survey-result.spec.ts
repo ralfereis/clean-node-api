@@ -1,17 +1,8 @@
 /* eslint-disable max-classes-per-file */
-import { ILoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository';
-import { mockSurveyResultModel } from '@/domain/test';
-import { SurveyResultModel } from '../survey-result/save-survey-result/db-save-survey-result-protocols';
 import { DbLoadSurveyResult } from './db-load-survey-result';
+import { ILoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository';
+import { mockLoadSurveyResultRepository } from '@/data/test';
 
-const mockLoadSurveyResultRepository = (): ILoadSurveyResultRepository => {
-  class LoadSurveyResultRepositoryStub implements ILoadSurveyResultRepository {
-    async loadBySurveyId(surveyId: string): Promise<SurveyResultModel> {
-      return Promise.resolve(mockSurveyResultModel());
-    }
-  }
-  return new LoadSurveyResultRepositoryStub();
-};
 type SutTypes = {
   sut: DbLoadSurveyResult;
   loadSurveyResultRepositoryStub: ILoadSurveyResultRepository;
