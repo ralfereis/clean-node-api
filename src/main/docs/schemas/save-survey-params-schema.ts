@@ -5,4 +5,5 @@ export const saveSurveyParamsSchema = {
       type: 'string',
     },
   },
+  required: ['answer'],
 };

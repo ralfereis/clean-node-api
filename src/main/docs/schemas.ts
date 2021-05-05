@@ -8,6 +8,7 @@ import {
   surveySchema,
   surveysSchema,
   surveyResultSchema,
+  surveyResultAnswerSchema,
 } from './schemas/';
 import { errorSchema } from './schemas/error-schema';
 
@@ -22,4 +23,5 @@ export default {
   surveyAnswer: surveyAnswerSchema,
   saveSurveyParams: saveSurveyParamsSchema,
   surveyResult: surveyResultSchema,
+  surveyResultAnswer: surveyResultAnswerSchema,
 };
