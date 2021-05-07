@@ -9,7 +9,7 @@ import { ILogErrorRepository } from '@/data/protocols/db/log/log-error-repositor
 import { mockLogErrorRepository } from '@/data/test';
 import { mockAccountModel } from '@/domain/test';
 
-const makeFakeServerError = (): HttpResponse => {
+const mockServerError = (): HttpResponse => {
   const fakeError = new Error();
   fakeError.stack = 'any_stack';
   return serverError(fakeError);
@@ -72,7 +72,7 @@ describe('Log Controller Decorator', () => {
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError');
     jest
       .spyOn(controllerStub, 'handle')
-      .mockReturnValueOnce(Promise.resolve(makeFakeServerError()));
+      .mockReturnValueOnce(Promise.resolve(mockServerError()));
     await sut.handle(mockRequest());
     expect(logSpy).toHaveBeenCalledWith('any_stack');
   });
