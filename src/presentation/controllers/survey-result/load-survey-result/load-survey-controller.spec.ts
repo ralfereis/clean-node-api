@@ -1,8 +1,9 @@
 import {
   HttpRequest,
   ILoadSurveyById,
+  ILoadSurveyResult,
 } from './load-survey-controller-protocols';
-import { mockLoadSurveyById } from '@/presentation/test';
+import { mockLoadSurveyById, mockLoadSurveyResult } from '@/presentation/test';
 import { LoadSurveyResultController } from './load-survey-controller';
 import {
   forbidden,
@@ -20,14 +21,20 @@ const mockRequest = (): HttpRequest => ({
 type SutTypes = {
   sut: LoadSurveyResultController;
   loadSurveyByIdStub: ILoadSurveyById;
+  loadSurveyResultStub: ILoadSurveyResult;
 };
 
 const makeSut = (): SutTypes => {
   const loadSurveyByIdStub = mockLoadSurveyById();
-  const sut = new LoadSurveyResultController(loadSurveyByIdStub);
+  const loadSurveyResultStub = mockLoadSurveyResult();
+  const sut = new LoadSurveyResultController(
+    loadSurveyByIdStub,
+    loadSurveyResultStub,
+  );
   return {
     sut,
     loadSurveyByIdStub,
+    loadSurveyResultStub,
   };
 };
 
@@ -55,5 +62,12 @@ describe('LoadSurveyResult Controller', () => {
       .mockImplementationOnce(throwError);
     const httpResponse = await sut.handle(mockRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
+  });
+
+  test('Should call LoadSurveyResult with correct id', async () => {
+    const { sut, loadSurveyResultStub } = makeSut();
+    const loadSpy = jest.spyOn(loadSurveyResultStub, 'load');
+    await sut.handle(mockRequest());
+    expect(loadSpy).toHaveBeenCalledWith('any_id');
   });
 });
