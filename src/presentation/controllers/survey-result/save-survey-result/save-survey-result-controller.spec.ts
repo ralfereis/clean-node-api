@@ -4,15 +4,15 @@ import {
   ILoadSurveyById,
   ISaveSurveyResult,
 } from './save-survey-result-controller-protocols';
+import { mockSurveyResultModel, throwError } from '@/domain/test';
 import { InvalidParamError } from '@/presentation/errors';
 import {
   forbidden,
   ok,
   serverError,
 } from '@/presentation/helpers/http/http-helper';
-import Mockdate from 'mockdate';
-import { mockSurveyResultModel, throwError } from '@/domain/test';
 import { mockLoadSurveyById, mockSaveSurveyResult } from '@/presentation/test';
+import Mockdate from 'mockdate';
 
 const mockRequest = (): HttpRequest => ({
   params: {
