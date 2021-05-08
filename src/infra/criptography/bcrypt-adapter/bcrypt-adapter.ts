@@ -4,12 +4,12 @@ import bcrypt from 'bcrypt';
 
 export class BcryptAdapter implements IHasher, IHashComparer {
   constructor(private readonly salt: number) {}
-  async hash(value: string): Promise<string> {
-    const hash = await bcrypt.hash(value, this.salt);
-    return hash;
+  async hash(plainText: string): Promise<string> {
+    const digest = await bcrypt.hash(plainText, this.salt);
+    return digest;
   }
-  async compare(value: string, hash: string): Promise<boolean> {
-    const isValid = await bcrypt.compare(value, hash);
+  async compare(plainText: string, digest: string): Promise<boolean> {
+    const isValid = await bcrypt.compare(plainText, digest);
     return isValid;
   }
 }

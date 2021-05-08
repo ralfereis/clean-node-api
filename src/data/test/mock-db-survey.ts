@@ -3,32 +3,34 @@ import { IAddSurveyRepository } from '@/data/protocols/db/survey/add-survey-repo
 import { ILoadSurveyByIdRepository } from '@/data/protocols/db/survey/load-survey-by-id-repository';
 import { ILoadSurveysRepository } from '@/data/protocols/db/survey/load-surveys-repository';
 import { SurveyModel } from '@/domain/models/survey';
-import { mockSurveyModel, mockSurveysModels } from '@/domain/test';
+import { mockSurveyModel, mockSurveyModels } from '@/domain/test';
 import { AddSurveyParams } from '@/domain/usecases/survey/add-survey';
 
-export const mockAddSurveyRepository = (): IAddSurveyRepository => {
-  class AddSurveyRepositoryStub implements IAddSurveyRepository {
-    add(surveyData: AddSurveyParams): Promise<void> {
-      return Promise.resolve();
-    }
-  }
-  return new AddSurveyRepositoryStub();
-};
+export class AddSurveyRepositorySpy implements IAddSurveyRepository {
+  addSurveyParams: AddSurveyParams;
 
-export const mockLoadSurveyByIdRepository = (): ILoadSurveyByIdRepository => {
-  class LoadSurveyByIdRepositoryStub implements ILoadSurveyByIdRepository {
-    loadById(id: string): Promise<SurveyModel> {
-      return Promise.resolve(mockSurveyModel());
-    }
+  async add(data: AddSurveyParams): Promise<void> {
+    this.addSurveyParams = data;
+    return Promise.resolve();
   }
-  return new LoadSurveyByIdRepositoryStub();
-};
+}
 
-export const mockLoadSurveysRepository = (): ILoadSurveysRepository => {
-  class LoadSurveysRepositoryStub implements ILoadSurveysRepository {
-    loadAll(): Promise<SurveyModel[]> {
-      return Promise.resolve(mockSurveysModels());
-    }
+export class LoadSurveyByIdRepositorySpy implements ILoadSurveyByIdRepository {
+  surveyModel = mockSurveyModel();
+  id: string;
+
+  async loadById(id: string): Promise<SurveyModel> {
+    this.id = id;
+    return Promise.resolve(this.surveyModel);
   }
-  return new LoadSurveysRepositoryStub();
-};
+}
+
+export class LoadSurveysRepositorySpy implements ILoadSurveysRepository {
+  surveyModels = mockSurveyModels();
+  callsCount = 0;
+
+  async loadAll(): Promise<SurveyModel[]> {
+    this.callsCount++;
+    return Promise.resolve(this.surveyModels);
+  }
+}

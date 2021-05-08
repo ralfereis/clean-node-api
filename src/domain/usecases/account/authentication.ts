@@ -3,5 +3,5 @@ export type AuthenticationParams = {
   password: string;
 };
 export interface IAuthentication {
-  auth(authentication: AuthenticationParams): Promise<string>;
+  auth(authenticationParams: AuthenticationParams): Promise<string>;
 }

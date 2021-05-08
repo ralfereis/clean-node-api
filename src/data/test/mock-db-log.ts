@@ -1,10 +1,10 @@
 import { ILogErrorRepository } from '@/data/protocols/db/log/log-error-repository';
 
-export const mockLogErrorRepository = (): ILogErrorRepository => {
-  class LogErrorRepository implements ILogErrorRepository {
-    async logError(stack: string): Promise<void> {
-      return Promise.resolve();
-    }
+export class LogErrorRepositorySpy implements ILogErrorRepository {
+  stack: string;
+
+  async logError(stack: string): Promise<void> {
+    this.stack = stack;
+    return Promise.resolve();
   }
-  return new LogErrorRepository();
-};
+}

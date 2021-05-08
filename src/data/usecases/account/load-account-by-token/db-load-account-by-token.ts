@@ -3,7 +3,7 @@ import {
   IDecrypter,
   ILoadAccountByToken,
   ILoadAccountByTokenRepository,
-} from './db-load-account-by-protocols';
+} from './db-load-account-by-token-protocols';
 
 export class DbLoadAccountByToken implements ILoadAccountByToken {
   constructor(

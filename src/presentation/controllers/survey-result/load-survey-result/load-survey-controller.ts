@@ -10,7 +10,7 @@ import {
   IController,
   ILoadSurveyById,
   ILoadSurveyResult,
-} from './load-survey-controller-protocols';
+} from './load-survey-result-controller-protocols';
 
 export class LoadSurveyResultController implements IController {
   constructor(

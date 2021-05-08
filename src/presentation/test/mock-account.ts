@@ -11,31 +11,36 @@ import {
 } from '@/domain/usecases/account/authentication';
 import { mockAccountModel } from '@/domain/test';
 import { ILoadAccountByToken } from '@/domain/usecases/account/load-account-by-token';
+import faker from 'faker';
 
-export const mockAddAccount = (): IAddAccount => {
-  class AddAccountStub implements IAddAccount {
-    async add(account: AddAccountParams): Promise<AccountModel> {
-      return Promise.resolve(mockAccountModel());
-    }
+export class AddAccountSpy implements IAddAccount {
+  accountModel = mockAccountModel();
+  addAccountParams: AddAccountParams;
+
+  async add(account: AddAccountParams): Promise<AccountModel> {
+    this.addAccountParams = account;
+    return Promise.resolve(this.accountModel);
   }
-  return new AddAccountStub();
-};
+}
 
-export const mockAuthentication = (): IAuthentication => {
-  class AuthenticationStub implements IAuthentication {
-    async auth(authentication: AuthenticationParams): Promise<string> {
-      return Promise.resolve('any_token');
-    }
+export class AuthenticationSpy implements IAuthentication {
+  authenticationParams: AuthenticationParams;
+  token = faker.datatype.uuid();
+
+  async auth(authenticationParams: AuthenticationParams): Promise<string> {
+    this.authenticationParams = authenticationParams;
+    return Promise.resolve(this.token);
   }
+}
 
-  return new AuthenticationStub();
-};
+export class LoadAccountByTokenSpy implements ILoadAccountByToken {
+  accountModel = mockAccountModel();
+  accessToken: string;
+  role: string;
 
-export const mockLoadAccountByToken = (): ILoadAccountByToken => {
-  class LoadAccountByTokenStub implements ILoadAccountByToken {
-    load(accessToken: string, role?: string): Promise<AccountModel> {
-      return Promise.resolve(mockAccountModel());
-    }
+  async load(accessToken: string, role?: string): Promise<AccountModel> {
+    this.accessToken = accessToken;
+    this.role = role;
+    return Promise.resolve(this.accountModel);
   }
-  return new LoadAccountByTokenStub();
-};
+}
