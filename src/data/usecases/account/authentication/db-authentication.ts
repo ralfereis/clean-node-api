@@ -5,6 +5,7 @@ import {
   ILoadAccountByEmailRepository,
   IEncrypter,
   IHashComparer,
+  AuthenticationModel,
 } from './db-authentication-protocols';
 
 export class DbAuthentication implements IAuthentication {
@@ -14,7 +15,9 @@ export class DbAuthentication implements IAuthentication {
     private readonly encrypter: IEncrypter,
     private readonly updateAccessTokenRepository: IUpdateAccessTokenRepository,
   ) {}
-  async auth(authenticationParams: AuthenticationParams): Promise<string> {
+  async auth(
+    authenticationParams: AuthenticationParams,
+  ): Promise<AuthenticationModel> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(
       authenticationParams.email,
     );
@@ -29,7 +32,10 @@ export class DbAuthentication implements IAuthentication {
           account.id,
           accessToken,
         );
-        return accessToken;
+        return {
+          accessToken,
+          name: account.name,
+        };
       }
     }
     return null;
