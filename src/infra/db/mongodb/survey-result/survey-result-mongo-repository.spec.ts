@@ -14,12 +14,12 @@ const makeSut = (): SurveyResultMongoRepository => {
   return new SurveyResultMongoRepository();
 };
 
-const makeSurvey = async (): Promise<SurveyModel> => {
+const mockSurvey = async (): Promise<SurveyModel> => {
   const result = await surveyCollection.insertOne(mockAddSurveyParams());
   return MongoHelper.map(result.ops[0]);
 };
 
-const makeAccount = async (): Promise<AccountModel> => {
+const mockAccount = async (): Promise<AccountModel> => {
   const result = await accountCollection.insertOne(mockAddAccountParams());
   return MongoHelper.map(result.ops[0]);
 };
@@ -43,8 +43,8 @@ describe('SurveyMongoRepository', () => {
 
   describe('save()', () => {
     test('Should add a survey result if its a new one', async () => {
-      const survey = await makeSurvey();
-      const account = await makeAccount();
+      const survey = await mockSurvey();
+      const account = await mockAccount();
       const sut = makeSut();
       await sut.save({
         surveyId: survey.id,
@@ -60,8 +60,8 @@ describe('SurveyMongoRepository', () => {
     });
 
     test('Should update survey result if its not a new one', async () => {
-      const survey = await makeSurvey();
-      const account = await makeAccount();
+      const survey = await mockSurvey();
+      const account = await mockAccount();
       await surveyResultCollection.insertOne({
         surveyId: new ObjectId(survey.id),
         accountId: new ObjectId(account.id),
@@ -88,8 +88,8 @@ describe('SurveyMongoRepository', () => {
 
   describe('loadBySurveyId()', () => {
     test('Should load survey result', async () => {
-      const survey = await makeSurvey();
-      const account = await makeAccount();
+      const survey = await mockSurvey();
+      const account = await mockAccount();
       await surveyResultCollection.insertMany([
         {
           surveyId: new ObjectId(survey.id),
@@ -115,8 +115,8 @@ describe('SurveyMongoRepository', () => {
     });
 
     test('Should return null if there is no survey result', async () => {
-      const survey = await makeSurvey();
-      const account = await makeAccount();
+      const survey = await mockSurvey();
+      const account = await mockAccount();
       const sut = makeSut();
       const surveyResult = await sut.loadBySurveyId(survey.id);
       expect(surveyResult).toBeNull();
