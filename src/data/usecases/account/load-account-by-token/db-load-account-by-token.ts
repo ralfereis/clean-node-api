@@ -17,7 +17,6 @@ export class DbLoadAccountByToken implements ILoadAccountByToken {
     } catch (error) {
       return null;
     }
-
     if (token) {
       const account = await this.loadAccountByTokenRepository.loadByToken(
         accessToken,
