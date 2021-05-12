@@ -10,7 +10,8 @@ export class SurveyMongoRepository
   implements
     IAddSurveyRepository,
     ILoadSurveysRepository,
-    ILoadSurveyByIdRepository {
+    ILoadSurveyByIdRepository
+{
   async add(data: AddSurveyParams): Promise<void> {
     const surveyCollection = await MongoHelper.getCollection('surveys');
     await surveyCollection.insertOne(data);

@@ -64,22 +64,16 @@ describe('DbLoadSurveyResult UseCase', () => {
   });
 
   test('Should call LoadSurveyByIdRepository if LoadSurveyResultRepository returns null', async () => {
-    const {
-      sut,
-      loadSurveyResultRepositorySpy,
-      loadSurveyByIdRepositorySpy,
-    } = makeSut();
+    const { sut, loadSurveyResultRepositorySpy, loadSurveyByIdRepositorySpy } =
+      makeSut();
     loadSurveyResultRepositorySpy.surveyResultModel = null;
     await sut.load(surveyId, accountId);
     expect(loadSurveyByIdRepositorySpy.id).toBe(surveyId);
   });
 
   test('Should return surveyResultModel with all answers with count 0 if LoadSurveyResultRepository returns null', async () => {
-    const {
-      sut,
-      loadSurveyResultRepositorySpy,
-      loadSurveyByIdRepositorySpy,
-    } = makeSut();
+    const { sut, loadSurveyResultRepositorySpy, loadSurveyByIdRepositorySpy } =
+      makeSut();
     loadSurveyResultRepositorySpy.surveyResultModel = null;
     const surveyResult = await sut.load(surveyId, accountId);
     const { surveyModel } = loadSurveyByIdRepositorySpy;

@@ -7,7 +7,8 @@ import { ObjectId } from 'mongodb';
 import round from 'mongo-round';
 
 export class SurveyResultMongoRepository
-  implements ISaveSurveyResultRepository, ILoadSurveyResultRepository {
+  implements ISaveSurveyResultRepository, ILoadSurveyResultRepository
+{
   async save(data: SaveSurveyResultParams): Promise<void> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults',

@@ -6,7 +6,8 @@ import { mockSurveyResultModel } from '@/domain/test';
 import { SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result';
 
 export class SaveSurveyResultRepositorySpy
-  implements ISaveSurveyResultRepository {
+  implements ISaveSurveyResultRepository
+{
   saveSurveyResultParams: SaveSurveyResultParams;
 
   async save(data: SaveSurveyResultParams): Promise<void> {
@@ -16,7 +17,8 @@ export class SaveSurveyResultRepositorySpy
 }
 
 export class LoadSurveyResultRepositorySpy
-  implements ILoadSurveyResultRepository {
+  implements ILoadSurveyResultRepository
+{
   surveyResultModel = mockSurveyResultModel();
   surveyId: string;
   accountId: string;

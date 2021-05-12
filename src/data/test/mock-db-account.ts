@@ -18,7 +18,8 @@ export class AddAccountRepositorySpy implements IAddAccountRepository {
 }
 
 export class LoadAccountByEmailRepositorySpy
-  implements ILoadAccountByEmailRepository {
+  implements ILoadAccountByEmailRepository
+{
   accountModel = mockAccountModel();
   email: string;
 
@@ -29,7 +30,8 @@ export class LoadAccountByEmailRepositorySpy
 }
 
 export class LoadAccountByTokenRepositorySpy
-  implements ILoadAccountByTokenRepository {
+  implements ILoadAccountByTokenRepository
+{
   accountModel = mockAccountModel();
   token: string;
   role: string;
@@ -42,7 +44,8 @@ export class LoadAccountByTokenRepositorySpy
 }
 
 export class UpdateAccessTokenRepositorySpy
-  implements IUpdateAccessTokenRepository {
+  implements IUpdateAccessTokenRepository
+{
   id: string;
   token: string;
 

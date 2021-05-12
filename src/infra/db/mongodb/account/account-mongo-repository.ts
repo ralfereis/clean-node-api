@@ -11,7 +11,8 @@ export class AccountMongoRepository
     IAddAccountRepository,
     ILoadAccountByEmailRepository,
     IUpdateAccessTokenRepository,
-    ILoadAccountByTokenRepository {
+    ILoadAccountByTokenRepository
+{
   async add(data: AddAccountParams): Promise<AccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts');
     const result = await accountCollection.insertOne(data);
