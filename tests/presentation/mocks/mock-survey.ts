@@ -1,19 +1,13 @@
 /* eslint-disable max-classes-per-file */
-import {
-  IAddSurvey,
-  AddSurveyParams,
-  ILoadSurveys,
-  ILoadSurveyById,
-} from '@/domain/usecases';
+import { IAddSurvey, ILoadSurveys, ILoadSurveyById } from '@/domain/usecases';
 import { SurveyModel } from '@/domain/models/survey';
 import { mockSurveyModel, mockSurveyModels } from '@/../tests/domain/mocks';
 
 export class AddSurveySpy implements IAddSurvey {
-  addSurveyParams: AddSurveyParams;
+  addSurveyParams: IAddSurvey.Params;
 
-  async add(data: AddSurveyParams): Promise<void> {
+  async add(data: IAddSurvey.Params): Promise<void> {
     this.addSurveyParams = data;
-    return Promise.resolve();
   }
 }
 
@@ -23,7 +17,7 @@ export class LoadSurveysSpy implements ILoadSurveys {
 
   async load(accountId: string): Promise<SurveyModel[]> {
     this.accountId = accountId;
-    return Promise.resolve(this.surveyModels);
+    return this.surveyModels;
   }
 }
 
@@ -33,6 +27,6 @@ export class LoadSurveyByIdSpy implements ILoadSurveyById {
 
   async loadById(id: string): Promise<SurveyModel> {
     this.id = id;
-    return Promise.resolve(this.surveyModel);
+    return this.surveyModel;
   }
 }
