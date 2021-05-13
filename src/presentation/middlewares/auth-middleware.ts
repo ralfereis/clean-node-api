@@ -2,10 +2,10 @@ import {
   HttpRequest,
   HttpResponse,
   IMiddleware,
-  ILoadAccountByToken,
-} from './auth-middleware-controller-protocols';
-import { AccessDeniedError } from '../errors';
-import { forbidden, ok, serverError } from '../helpers/http/http-helper';
+} from '@/presentation/protocols';
+import { AccessDeniedError } from '@/presentation/errors';
+import { forbidden, ok, serverError } from '@/presentation/helpers/';
+import { ILoadAccountByToken } from '@/domain/usecases';
 
 export class AuthMiddleware implements IMiddleware {
   constructor(
