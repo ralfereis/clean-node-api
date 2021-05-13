@@ -1,4 +1,4 @@
-import { IAddAccount, AddAccountParams } from '@/domain/usecases';
+import { IAddAccount } from '@/domain/usecases';
 import {
   IHasher,
   IAddAccountRepository,
@@ -12,18 +12,18 @@ export class DbAddAccount implements IAddAccount {
     private readonly addAccountRepository: IAddAccountRepository,
     private readonly loadAccountByEmailRepository: ILoadAccountByEmailRepository,
   ) {}
-  async add(accountData: AddAccountParams): Promise<AccountModel> {
+  async add(accountData: IAddAccount.Params): Promise<IAddAccount.Result> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(
       accountData.email,
     );
+    let newAccount: AccountModel = null;
     if (!account) {
       const hashedPassword = await this.hasher.hash(accountData.password);
-      const newAccount = await this.addAccountRepository.add({
+      newAccount = await this.addAccountRepository.add({
         ...accountData,
         password: hashedPassword,
       });
-      return newAccount;
     }
-    return null;
+    return newAccount != null;
   }
 }

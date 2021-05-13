@@ -1,10 +1,6 @@
-import { InvalidParamError } from '@/presentation/errors';
+import { HttpResponse, IController } from '@/presentation/protocols';
 import { forbidden, ok, serverError } from '@/presentation/helpers';
-import {
-  HttpRequest,
-  HttpResponse,
-  IController,
-} from '@/presentation/protocols';
+import { InvalidParamError } from '@/presentation/errors';
 import { ILoadSurveyById, ISaveSurveyResult } from '@/domain/usecases';
 
 export class SaveSurveyResultController implements IController {
@@ -12,11 +8,11 @@ export class SaveSurveyResultController implements IController {
     private readonly loadSurveyById: ILoadSurveyById,
     private readonly saveSurveyResult: ISaveSurveyResult,
   ) {}
-  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+  async handle(
+    request: SaveSurveyResultController.Request,
+  ): Promise<HttpResponse> {
     try {
-      const { surveyId } = httpRequest.params;
-      const { answer } = httpRequest.body;
-      const { accountId } = httpRequest;
+      const { surveyId, accountId, answer } = request;
       const survey = await this.loadSurveyById.loadById(surveyId);
       if (survey) {
         const answers = survey.answers.map(a => a.answer);
@@ -37,4 +33,12 @@ export class SaveSurveyResultController implements IController {
       return serverError(error);
     }
   }
+}
+
+export namespace SaveSurveyResultController {
+  export type Request = {
+    surveyId: string;
+    accountId: string;
+    answer: string;
+  };
 }

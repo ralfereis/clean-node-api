@@ -1,7 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { AccountModel } from '@/domain/models/account';
 import {
-  AddAccountParams,
   IAddAccount,
   AuthenticationParams,
   IAuthentication,
@@ -14,12 +13,12 @@ import { mockAccountModel } from '@/../tests/domain/mocks';
 import faker from 'faker';
 
 export class AddAccountSpy implements IAddAccount {
-  accountModel = mockAccountModel();
-  addAccountParams: AddAccountParams;
+  isValid = true;
+  addAccountParams: IAddAccount.Params;
 
-  async add(account: AddAccountParams): Promise<AccountModel> {
+  async add(account: IAddAccount.Params): Promise<IAddAccount.Result> {
     this.addAccountParams = account;
-    return Promise.resolve(this.accountModel);
+    return this.isValid;
   }
 }
 
