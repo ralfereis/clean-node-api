@@ -4,8 +4,7 @@ import {
   ILoadAccountByEmailRepository,
   IUpdateAccessTokenRepository,
 } from '@/data/protocols';
-import { AuthenticationModel } from '@/domain/models';
-import { IAuthentication, AuthenticationParams } from '@/domain/usecases';
+import { IAuthentication } from '@/domain/usecases';
 
 export class DbAuthentication implements IAuthentication {
   constructor(
@@ -15,8 +14,8 @@ export class DbAuthentication implements IAuthentication {
     private readonly updateAccessTokenRepository: IUpdateAccessTokenRepository,
   ) {}
   async auth(
-    authenticationParams: AuthenticationParams,
-  ): Promise<AuthenticationModel> {
+    authenticationParams: IAuthentication.Params,
+  ): Promise<IAuthentication.Result> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(
       authenticationParams.email,
     );

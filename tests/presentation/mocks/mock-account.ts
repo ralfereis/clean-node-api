@@ -2,12 +2,9 @@
 import { AccountModel } from '@/domain/models/account';
 import {
   IAddAccount,
-  AuthenticationParams,
   IAuthentication,
   ILoadAccountByToken,
 } from '@/domain/usecases';
-
-import { AuthenticationModel } from '@/domain/models';
 import { mockAccountModel } from '@/../tests/domain/mocks';
 
 import faker from 'faker';
@@ -23,15 +20,15 @@ export class AddAccountSpy implements IAddAccount {
 }
 
 export class AuthenticationSpy implements IAuthentication {
-  authenticationParams: AuthenticationParams;
+  authenticationParams: IAuthentication.Params;
   authenticationModel = {
     accessToken: faker.datatype.uuid(),
     name: faker.name.findName(),
   };
 
   async auth(
-    authenticationParams: AuthenticationParams,
-  ): Promise<AuthenticationModel> {
+    authenticationParams: IAuthentication.Params,
+  ): Promise<IAuthentication.Result> {
     this.authenticationParams = authenticationParams;
     return this.authenticationModel;
   }
