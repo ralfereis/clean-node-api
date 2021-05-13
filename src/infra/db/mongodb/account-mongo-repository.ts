@@ -33,19 +33,29 @@ export class AccountMongoRepository
       { $set: { accessToken: token } },
     );
   }
-  async loadByToken(token: string, role?: string): Promise<AccountModel> {
+  async loadByToken(
+    token: string,
+    role?: string,
+  ): Promise<ILoadAccountByTokenRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts');
-    const account = await accountCollection.findOne({
-      accessToken: token,
-      $or: [
-        {
-          role,
+    const account = await accountCollection.findOne(
+      {
+        accessToken: token,
+        $or: [
+          {
+            role,
+          },
+          {
+            role: 'admin',
+          },
+        ],
+      },
+      {
+        projection: {
+          _id: 1,
         },
-        {
-          role: 'admin',
-        },
-      ],
-    });
+      },
+    );
     return account && MongoHelper.map(account);
   }
 }

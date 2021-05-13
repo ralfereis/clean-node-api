@@ -1,21 +1,19 @@
 /* eslint-disable max-classes-per-file */
-import { AccountModel } from '@/domain/models/account';
 import {
   IAddAccount,
   IAuthentication,
   ILoadAccountByToken,
 } from '@/domain/usecases';
-import { mockAccountModel } from '@/../tests/domain/mocks';
 
 import faker from 'faker';
 
 export class AddAccountSpy implements IAddAccount {
-  isValid = true;
+  result = true;
   addAccountParams: IAddAccount.Params;
 
   async add(account: IAddAccount.Params): Promise<IAddAccount.Result> {
     this.addAccountParams = account;
-    return this.isValid;
+    return this.result;
   }
 }
 
@@ -35,13 +33,16 @@ export class AuthenticationSpy implements IAuthentication {
 }
 
 export class LoadAccountByTokenSpy implements ILoadAccountByToken {
-  accountModel = mockAccountModel();
+  result = { id: faker.datatype.uuid() };
   accessToken: string;
   role: string;
 
-  async load(accessToken: string, role?: string): Promise<AccountModel> {
+  async load(
+    accessToken: string,
+    role?: string,
+  ): Promise<ILoadAccountByToken.Result> {
     this.accessToken = accessToken;
     this.role = role;
-    return Promise.resolve(this.accountModel);
+    return this.result;
   }
 }

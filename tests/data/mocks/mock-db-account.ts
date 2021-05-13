@@ -37,7 +37,10 @@ export class LoadAccountByTokenRepositorySpy
   token: string;
   role: string;
 
-  async loadByToken(token: string, role?: string): Promise<AccountModel> {
+  async loadByToken(
+    token: string,
+    role?: string,
+  ): Promise<ILoadAccountByTokenRepository.Result> {
     this.token = token;
     this.role = role;
     return this.accountModel;
