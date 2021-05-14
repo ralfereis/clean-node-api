@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { IAddAccountRepository } from '@/data/protocols/db/account/add-account-repository';
 import {
+  ICheckAccountByEmailRepository,
   ILoadAccountByEmailRepository,
   ILoadAccountByTokenRepository,
   IUpdateAccessTokenRepository,
@@ -33,6 +34,20 @@ export class LoadAccountByEmailRepositorySpy
   async loadByEmail(
     email: string,
   ): Promise<ILoadAccountByEmailRepository.Result> {
+    this.email = email;
+    return this.result;
+  }
+}
+
+export class CheckAccountByEmailRepositorySpy
+  implements ICheckAccountByEmailRepository
+{
+  email: string;
+  result = false;
+
+  async checkByEmail(
+    email: string,
+  ): Promise<ICheckAccountByEmailRepository.Result> {
     this.email = email;
     return this.result;
   }
