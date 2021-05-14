@@ -16,12 +16,12 @@ export class AddSurveyRepositorySpy implements IAddSurveyRepository {
 }
 
 export class LoadSurveyByIdRepositorySpy implements ILoadSurveyByIdRepository {
-  surveyModel = mockSurveyModel();
+  result = mockSurveyModel();
   id: string;
 
-  async loadById(id: string): Promise<SurveyModel> {
+  async loadById(id: string): Promise<ILoadSurveyByIdRepository.Result> {
     this.id = id;
-    return this.surveyModel;
+    return this.result;
   }
 }
 
