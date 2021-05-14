@@ -4,6 +4,7 @@ import {
   IAddSurveyRepository,
   ILoadSurveysRepository,
   ILoadSurveyByIdRepository,
+  ICheckSurveyByIdRepository,
 } from '@/data/protocols/';
 
 import { ObjectId } from 'mongodb';
@@ -12,7 +13,8 @@ export class SurveyMongoRepository
   implements
     IAddSurveyRepository,
     ILoadSurveysRepository,
-    ILoadSurveyByIdRepository
+    ILoadSurveyByIdRepository,
+    ICheckSurveyByIdRepository
 {
   async add(data: IAddSurveyRepository.Params): Promise<void> {
     const surveyCollection = await MongoHelper.getCollection('surveys');
@@ -59,5 +61,14 @@ export class SurveyMongoRepository
     const surveyCollection = await MongoHelper.getCollection('surveys');
     const survey = await surveyCollection.findOne({ _id: new ObjectId(id) });
     return survey && MongoHelper.map(survey);
+  }
+
+  async checkById(id: string): Promise<ICheckSurveyByIdRepository.Result> {
+    const surveyCollection = await MongoHelper.getCollection('surveys');
+    const survey = await surveyCollection.findOne(
+      { _id: new ObjectId(id) },
+      { projection: { _id: 1 } },
+    );
+    return survey !== null;
   }
 }

@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "bson",
     "camelcase",
     "cavalcante",
     "com",
@@ -20,6 +21,7 @@
     "middlewares",
     "mockdate",
     "no",
+    "objectid",
     "openapi",
     "originalname",
     "pgdata",

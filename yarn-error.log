@@ -1,5 +1,5 @@
 Arguments: 
-  /home/ralfereis/.nvm/versions/node/v14.16.1/bin/node /usr/share/yarn/bin/yarn.js add @types/mongo-round -D
+  /home/ralfereis/.nvm/versions/node/v14.16.1/bin/node /usr/share/yarn/bin/yarn.js add -D @tyes/bson-objectid
 
 PATH: 
   /home/ralfereis/.nvm/versions/node/v14.16.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/ralfereis/.fzf/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fmongo-round: Not found
+  Error: https://registry.yarnpkg.com/@tyes%2fbson-objectid: Not found
       at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66988:18)
       at Request.self.callback (/usr/share/yarn/lib/cli.js:140749:22)
       at Request.emit (events.js:315:20)
@@ -74,6 +74,7 @@ npm manifest:
       "@types/validator": "^13.1.3",
       "@typescript-eslint/eslint-plugin": "4.23.0",
       "@typescript-eslint/parser": "4.23.0",
+      "bson-objectid": "^2.0.1",
       "copyfiles": "^2.4.1",
       "coveralls": "^3.1.0",
       "eslint": "7.26.0",
@@ -1497,6 +1498,11 @@ Lockfile:
     integrity sha512-gQxTNE/GAfIIrmHLUE3oJyp5FO6HRBfhjnw4/wMmA63ZGDJnWBmgY/lyQBpnDUkGmAhbSe39tx2d/iTOAfglwQ==
     dependencies:
       node-int64 "^0.4.0"
+  
+  bson-objectid@^2.0.1:
+    version "2.0.1"
+    resolved "https://registry.yarnpkg.com/bson-objectid/-/bson-objectid-2.0.1.tgz#226a9ffecd3a8d52f565d71012dd5b176560fef1"
+    integrity sha512-b4D1/G4uP9Yks4rv+nDVsZ4ybT1W5nQYw4lfpfaRP2Q18azlR6Oe2BAuirG1lzrwQFtHnJ0nrK5kWKKZVEMUng==
   
   bson@^1.1.4:
     version "1.1.6"

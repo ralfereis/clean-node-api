@@ -1,6 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import {
   IAddSurveyRepository,
+  ICheckSurveyByIdRepository,
   ILoadSurveyByIdRepository,
   ILoadSurveysRepository,
 } from '@/data/protocols';
@@ -20,6 +21,18 @@ export class LoadSurveyByIdRepositorySpy implements ILoadSurveyByIdRepository {
   id: string;
 
   async loadById(id: string): Promise<ILoadSurveyByIdRepository.Result> {
+    this.id = id;
+    return this.result;
+  }
+}
+
+export class CheckSurveyByIdRepositorySpy
+  implements ICheckSurveyByIdRepository
+{
+  result = true;
+  id: string;
+
+  async checkById(id: string): Promise<ICheckSurveyByIdRepository.Result> {
     this.id = id;
     return this.result;
   }

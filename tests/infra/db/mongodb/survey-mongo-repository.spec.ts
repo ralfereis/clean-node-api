@@ -6,6 +6,7 @@ import {
 } from '@/../tests/domain/mocks';
 
 import { Collection } from 'mongodb';
+import FakeObjectId from 'bson-objectid';
 
 let surveyCollection: Collection;
 let surveyResultCollection: Collection;
@@ -82,6 +83,21 @@ describe('SurveyMongoRepository', () => {
       const survey = await sut.loadById(result.ops[0]._id);
       expect(survey).toBeTruthy();
       expect(survey.id).toBeTruthy();
+    });
+  });
+
+  describe('checkById()', () => {
+    test('Should return true if survey exists', async () => {
+      const result = await surveyCollection.insertOne(mockAddSurveyParams());
+      const sut = makeSut();
+      const exists = await sut.checkById(result.ops[0]._id);
+      expect(exists).toBe(true);
+    });
+
+    test('Should return false if survey does not exists', async () => {
+      const sut = makeSut();
+      const exists = await sut.checkById(FakeObjectId.generate());
+      expect(exists).toBe(false);
     });
   });
 });
