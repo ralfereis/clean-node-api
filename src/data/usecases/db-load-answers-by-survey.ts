@@ -1,12 +1,11 @@
-import { ILoadSurveyByIdRepository } from '@/data/protocols';
+import { ILoadAnswersBySurveyRepository } from '@/data/protocols';
 import { ILoadAnswersBySurvey } from '@/domain/usecases';
 
 export class DbLoadAnswersBySurvey implements ILoadAnswersBySurvey {
   constructor(
-    private readonly loadSurveyByIdRepository: ILoadSurveyByIdRepository,
+    private readonly loadAnswersBySurveyRepository: ILoadAnswersBySurveyRepository,
   ) {}
   async loadAnswers(id: string): Promise<ILoadAnswersBySurvey.Result> {
-    const survey = await this.loadSurveyByIdRepository.loadById(id);
-    return survey?.answers.map(a => a.answer) || [];
+    return this.loadAnswersBySurveyRepository.loadAnswers(id);
   }
 }
