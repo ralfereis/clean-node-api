@@ -1,5 +1,3 @@
-import { AccountModel } from '@/domain/models';
-
 export interface ILoadAccountByTokenRepository {
   loadByToken(
     token: string,
@@ -8,5 +6,7 @@ export interface ILoadAccountByTokenRepository {
 }
 
 export namespace ILoadAccountByTokenRepository {
-  export type Result = AccountModel;
+  export type Result = {
+    id: string;
+  };
 }

@@ -56,7 +56,7 @@ describe('DbAuthentication UseCase', () => {
 
   test('Should return null if LoadAccountByEmailRepository returns null', async () => {
     const { sut, loadAccountByEmailRepositorySpy } = makeSut();
-    loadAccountByEmailRepositorySpy.accountModel = null;
+    loadAccountByEmailRepositorySpy.result = null;
     const model = await sut.auth(mockAuthenticationParams());
     expect(model).toBeNull();
   });
@@ -67,7 +67,7 @@ describe('DbAuthentication UseCase', () => {
     await sut.auth(authenticationParams);
     expect(hashComparerSpy.plainText).toBe(authenticationParams.password);
     expect(hashComparerSpy.digest).toBe(
-      loadAccountByEmailRepositorySpy.accountModel.password,
+      loadAccountByEmailRepositorySpy.result.password,
     );
   });
 
@@ -89,7 +89,7 @@ describe('DbAuthentication UseCase', () => {
     const { sut, encrypterSpy, loadAccountByEmailRepositorySpy } = makeSut();
     await sut.auth(mockAuthenticationParams());
     expect(encrypterSpy.plainText).toBe(
-      loadAccountByEmailRepositorySpy.accountModel.id,
+      loadAccountByEmailRepositorySpy.result.id,
     );
   });
 
@@ -104,7 +104,7 @@ describe('DbAuthentication UseCase', () => {
     const { sut, encrypterSpy, loadAccountByEmailRepositorySpy } = makeSut();
     const { accessToken, name } = await sut.auth(mockAuthenticationParams());
     expect(accessToken).toBe(encrypterSpy.cipherText);
-    expect(name).toBe(loadAccountByEmailRepositorySpy.accountModel.name);
+    expect(name).toBe(loadAccountByEmailRepositorySpy.result.name);
   });
 
   test('Should call UpdateAccessTokenRepository with correct values', async () => {
@@ -116,7 +116,7 @@ describe('DbAuthentication UseCase', () => {
     } = makeSut();
     await sut.auth(mockAuthenticationParams());
     expect(updateAccessTokenRepositorySpy.id).toBe(
-      loadAccountByEmailRepositorySpy.accountModel.id,
+      loadAccountByEmailRepositorySpy.result.id,
     );
     expect(updateAccessTokenRepositorySpy.token).toBe(encrypterSpy.cipherText);
   });

@@ -1,5 +1,4 @@
 import { MongoHelper } from './mongo-helper';
-import { AccountModel } from '@/domain/models/account';
 import {
   IAddAccountRepository,
   ILoadAccountByEmailRepository,
@@ -19,11 +18,22 @@ export class AccountMongoRepository
   ): Promise<IAddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts');
     const result = await accountCollection.insertOne(data);
-    return MongoHelper.map(result.ops[0]);
+    return result.ops[0] !== null;
   }
-  async loadByEmail(email: string): Promise<AccountModel> {
+  async loadByEmail(
+    email: string,
+  ): Promise<ILoadAccountByEmailRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts');
-    const account = await accountCollection.findOne({ email });
+    const account = await accountCollection.findOne(
+      { email },
+      {
+        projection: {
+          _id: 1,
+          name: 1,
+          password: 1,
+        },
+      },
+    );
     return account && MongoHelper.map(account);
   }
   async updateAccessToken(id: string, token: string): Promise<void> {

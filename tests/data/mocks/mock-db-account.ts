@@ -1,39 +1,49 @@
 /* eslint-disable max-classes-per-file */
 import { IAddAccountRepository } from '@/data/protocols/db/account/add-account-repository';
-import { ILoadAccountByEmailRepository } from '@/data/protocols/db/account/load-account-by-email-repository';
-import { ILoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository';
-import { AccountModel } from '@/domain/models/account';
-import { mockAccountModel } from '@/../tests/domain/mocks';
-import { IUpdateAccessTokenRepository } from '@/data/protocols';
+import {
+  ILoadAccountByEmailRepository,
+  ILoadAccountByTokenRepository,
+  IUpdateAccessTokenRepository,
+} from '@/data/protocols';
+
+import faker from 'faker';
 
 export class AddAccountRepositorySpy implements IAddAccountRepository {
-  accountModel = mockAccountModel();
+  result = true;
   addAccountParams: IAddAccountRepository.Params;
 
   async add(
     data: IAddAccountRepository.Params,
   ): Promise<IAddAccountRepository.Result> {
     this.addAccountParams = data;
-    return Promise.resolve(this.accountModel);
+    return this.result;
   }
 }
 
 export class LoadAccountByEmailRepositorySpy
   implements ILoadAccountByEmailRepository
 {
-  accountModel = mockAccountModel();
+  result = {
+    id: faker.datatype.uuid(),
+    name: faker.name.findName(),
+    password: faker.internet.password(),
+  };
   email: string;
 
-  async loadByEmail(email: string): Promise<AccountModel> {
+  async loadByEmail(
+    email: string,
+  ): Promise<ILoadAccountByEmailRepository.Result> {
     this.email = email;
-    return this.accountModel;
+    return this.result;
   }
 }
 
 export class LoadAccountByTokenRepositorySpy
   implements ILoadAccountByTokenRepository
 {
-  accountModel = mockAccountModel();
+  result = {
+    id: faker.datatype.uuid(),
+  };
   token: string;
   role: string;
 
@@ -43,7 +53,7 @@ export class LoadAccountByTokenRepositorySpy
   ): Promise<ILoadAccountByTokenRepository.Result> {
     this.token = token;
     this.role = role;
-    return this.accountModel;
+    return this.result;
   }
 }
 
