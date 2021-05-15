@@ -1,4 +1,3 @@
-import { MongoHelper } from './mongo-helper';
 import {
   IAddAccountRepository,
   ILoadAccountByEmailRepository,
@@ -6,6 +5,8 @@ import {
   IUpdateAccessTokenRepository,
   ICheckAccountByEmailRepository,
 } from '@/data/protocols';
+
+import { MongoHelper } from './mongo-helper';
 
 export class AccountMongoRepository
   implements

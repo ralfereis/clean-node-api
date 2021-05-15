@@ -1,4 +1,3 @@
-import { MongoHelper, QueryBuilder } from '@/infra/db';
 import {
   IAddSurveyRepository,
   ILoadSurveysRepository,
@@ -7,6 +6,7 @@ import {
   ILoadAnswersBySurveyRepository,
 } from '@/data/protocols/';
 
+import { MongoHelper, QueryBuilder } from '@/infra/db';
 import { ObjectId } from 'mongodb';
 
 export class SurveyMongoRepository

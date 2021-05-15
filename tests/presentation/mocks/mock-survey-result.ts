@@ -1,30 +1,30 @@
 /* eslint-disable max-classes-per-file */
-import { SurveyResultModel } from '@/domain/models/survey-result';
+import { ILoadSurveyResult, ISaveSurveyResult } from '@/domain/usecases';
 import { mockSurveyResultModel } from '@/../tests/domain/mocks';
-import {
-  ILoadSurveyResult,
-  ISaveSurveyResult,
-  SaveSurveyResultParams,
-} from '@/domain/usecases';
 
 export class SaveSurveyResultSpy implements ISaveSurveyResult {
-  surveyResultModel = mockSurveyResultModel();
-  saveSurveyResultParams: SaveSurveyResultParams;
+  result = mockSurveyResultModel();
+  saveSurveyResultParams: ISaveSurveyResult.Params;
 
-  async save(data: SaveSurveyResultParams): Promise<SurveyResultModel> {
+  async save(
+    data: ISaveSurveyResult.Params,
+  ): Promise<ISaveSurveyResult.Result> {
     this.saveSurveyResultParams = data;
-    return Promise.resolve(this.surveyResultModel);
+    return Promise.resolve(this.result);
   }
 }
 
 export class LoadSurveyResultSpy implements ILoadSurveyResult {
-  surveyResultModel = mockSurveyResultModel();
+  result = mockSurveyResultModel();
   surveyId: string;
   accountId: string;
 
-  async load(surveyId: string, accountId: string): Promise<SurveyResultModel> {
+  async load(
+    surveyId: string,
+    accountId: string,
+  ): Promise<ILoadSurveyResult.Result> {
     this.surveyId = surveyId;
     this.accountId = accountId;
-    return this.surveyResultModel;
+    return this.result;
   }
 }
