@@ -9,4 +9,5 @@ export const mockApolloServer = (): ApolloServer =>
     resolvers,
     typeDefs,
     schemaDirectives,
+    context: ({ req }) => ({ req }),
   });
